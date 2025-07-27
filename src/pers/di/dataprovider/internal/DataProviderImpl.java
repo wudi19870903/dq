@@ -25,6 +25,11 @@ public class DataProviderImpl extends DataProvider
     }
 
     @Override
+    public int updateOneLocalStocks(String stockID) {
+        return -1;
+    }
+
+    @Override
     public int getAllStockIDList(List<String> list) { 
         if (list == null) {
             return -1;

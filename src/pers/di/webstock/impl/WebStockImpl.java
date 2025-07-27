@@ -23,15 +23,15 @@ public class WebStockImpl implements IWebStock {
 		m_DataWebStockDividendPayout = new DataWebStockDividendPayout();
 	}
 
-	@Override
-	public int getAllStockList(List<StockItem> container) {
-		return m_DataWebStockAllList.getAllStockList(container);
-	}
+	// @Override
+	// public int getAllStockList(List<StockItem> container) {
+	// 	return m_DataWebStockAllList.getAllStockList(container);
+	// }
 
-	@Override
-	public int getStockInfo(String stockID, StockInfo container) {
-		return m_DataWebStockInfo.getStockInfo(stockID, container);
-	}
+	// @Override
+	// public int getStockInfo(String stockID, StockInfo container) {
+	// 	return m_DataWebStockInfo.getStockInfo(stockID, container);
+	// }
 
 	@Override
 	public int getDividendPayout(String stockID, List<DividendPayout> container) {
@@ -39,19 +39,19 @@ public class WebStockImpl implements IWebStock {
 	}
 	
 	@Override
-	public int getKLine(String stockID, String beginDate, String endDate, List<KLine> container) {
-		return m_DataWebStockDayK.getKLine(stockID, beginDate, endDate, container);
+	public int getKLine(String stockID, List<KLine> container) {
+		return m_DataWebStockDayK.getKLine(stockID, container);
 	}
 
-	@Override
-	public int getTransactionRecordHistory(String stockID, String date, List<TransactionRecord> container) {
-		return m_TransactionRecordHistory.getTransactionRecordHistory(stockID, date, container);
-	}
+	// @Override
+	// public int getTransactionRecordHistory(String stockID, String date, List<TransactionRecord> container) {
+	// 	return m_TransactionRecordHistory.getTransactionRecordHistory(stockID, date, container);
+	// }
 
-	@Override
-	public int getRealTimeInfo(List<String> stockIDs, List<RealTimeInfoLite> container) {
-		return m_DataWebStockRealTimeInfo.getRealTimeInfo(stockIDs, container);
-	}
+	// @Override
+	// public int getRealTimeInfo(List<String> stockIDs, List<RealTimeInfoLite> container) {
+	// 	return m_DataWebStockRealTimeInfo.getRealTimeInfo(stockIDs, container);
+	// }
 
 	private DataWebStockAllList m_DataWebStockAllList;
 	private DataWebStockInfo m_DataWebStockInfo;

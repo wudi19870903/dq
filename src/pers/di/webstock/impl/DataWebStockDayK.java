@@ -7,6 +7,9 @@ import java.util.List;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -40,22 +43,22 @@ public class DataWebStockDayK {
 	 *     v2.0: url: e.g "http://quotes.money.163.com/service/chddata.html?code=0601857&start=20170705&end=20170809&fields=TCLOSE;HIGH;LOW;TOPEN;VOTURNOVER;"
 	 
 	 */
-	public int getKLine(String id, String begin_date, String end_date, List<KLine> container)
+	public int getKLine(String id, List<KLine> container)
 	{
 		int error = 0;
 		
 		String innerID = "";
 		if(id.startsWith("60") && 6 == id.length())
 		{
-			innerID = "0" + id;
+			innerID = "sh" + id;
 		}
 		else if((id.startsWith("00") ||  id.startsWith("30")) && 6 == id.length())
 		{
-			innerID = "1" + id;
+			innerID = "sz" + id;
 		}
 		else if(id.startsWith("999999")) // 上证指数
 		{
-			innerID = "0" + "000001";
+			innerID = "sh" + "000001";
 		}
 		else
 		{
@@ -63,13 +66,14 @@ public class DataWebStockDayK {
 			return error;
 		}
 		
-		String urlStr = "http://quotes.money.163.com/service/chddata.html?";
-		urlStr = urlStr + "code=" + innerID + "&start=" + begin_date + "&end=" + end_date + "&fields=TOPEN;TCLOSE;LOW;HIGH;VOTURNOVER;";
+		// http://money.finance.sina.com.cn/quotes_service/api/json_v2.php/CN_MarketData.getKLineData?symbol=sz002095&scale=240&ma=no&datalen=1023
+		String urlStr = "http://money.finance.sina.com.cn/quotes_service/api/json_v2.php/CN_MarketData.getKLineData?";
+		urlStr = urlStr + "symbol=" + innerID + "&scale=240&ma=no&datalen=2500";
 		
 		try
 		{
-			String htmlstr = m_http.getWebData(urlStr, 1000);
-			parseHtml2(htmlstr, container);
+			String jsonStr = m_http.getWebData(urlStr, 1000);
+			parseJson3(jsonStr, container);
 		}
 		catch(Exception e)
 		{
@@ -205,6 +209,43 @@ public class DataWebStockDayK {
 		}
 		
 		return error;
+	}
+
+	// for html: "http://money.finance.sina.com.cn/quotes_service/api/json_v2.php/CN_MarketData.getKLineData?symbol=sz002095&scale=240&ma=no&datalen=1023"
+	private static void parseJson3(String in_str, List<KLine> resultList) {
+		if (in_str == null || in_str.trim().isEmpty()) {
+			return;
+		}
+		
+		try {
+			// Parse the JSON array directly
+			JSONArray jsonArray = new JSONArray(in_str);
+			
+			// Iterate through each JSON object in the array
+			for (int i = 0; i < jsonArray.length(); i++) {
+				JSONObject jsonObject = jsonArray.getJSONObject(i);
+				
+				// Create new KLine object
+				KLine kLine = new KLine();
+				
+				// Extract values from JSON object
+				kLine.date = jsonObject.getString("day");
+				kLine.open = jsonObject.getDouble("open");
+				kLine.high = jsonObject.getDouble("high");
+				kLine.low = jsonObject.getDouble("low");
+				kLine.close = jsonObject.getDouble("close");
+				kLine.volume = jsonObject.getDouble("volume");
+				
+				// Only add if close price is not zero and date exists
+				if (kLine.date != null && !kLine.date.isEmpty() && 
+					Double.compare(kLine.close, 0.0) != 0) {
+					resultList.add(kLine);
+				}
+			}
+		} catch (Exception e) {
+			System.err.println("Error parsing JSON: " + e.getMessage());
+			e.printStackTrace();
+		}
 	}
 	
 	private CHttp m_http;
