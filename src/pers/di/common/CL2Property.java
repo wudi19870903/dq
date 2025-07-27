@@ -271,7 +271,7 @@ public class CL2Property {
 			return -1;
 		}
 
-		// »ñµÃ×îÖÕoriXmlStr
+		// è·å¾—æœ€ç»ˆoriXmlStr
 		String oriXmlStr ="";
 		if(null != doc && null != transformer)
 		{
@@ -290,7 +290,7 @@ public class CL2Property {
 			}
 		}
 		
-		// ¸ñÊ½»¯XmlStr
+		// æ ¼å¼åŒ–XmlStr
 		String formatedXmlStr = "";
 		try {
 			formatedXmlStr = CUtilsXML.format(oriXmlStr);
@@ -299,7 +299,7 @@ public class CL2Property {
 			return -1;
 		}
 		
-		// ¸üĞÂµ½ÎÄ¼ş
+		// æ›´æ–°åˆ°æ–‡ä»¶
 		File cfile_new = new File(m_fileName);
 		try {
 			FileWriter fw = new FileWriter(cfile_new.getAbsoluteFile());
@@ -325,7 +325,7 @@ public class CL2Property {
 		File cfile=new File(m_fileName);
 		if(!cfile.exists())
 		{
-			return -1; // Ã»ÓĞÎÄ¼ş loadÊ§°Ü
+			return -1; // æ²¡æœ‰æ–‡ä»¶ loadå¤±è´¥
 		}
 		
 		try
@@ -343,7 +343,7 @@ public class CL2Property {
 			//fmt.format("XML:\n" + xmlStr);
 			if(xmlStr.length()<=0)
 			{
-				return -1; // Ã»ÓĞÄÚÈİ loadÊ§°Ü
+				return -1; // æ²¡æœ‰å†…å®¹ loadå¤±è´¥
 			}
 			
 			DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
@@ -355,7 +355,7 @@ public class CL2Property {
 		    
 		    if(!rootElement.getTagName().contains("CL2Property")) 
 			{
-				return -1; // Ã»ÓĞroot loadÊ§°Ü
+				return -1; // æ²¡æœ‰root loadå¤±è´¥
 			}
 		    
 		    NodeList nodelist_MainProperty = rootElement.getElementsByTagName("MainProperty");

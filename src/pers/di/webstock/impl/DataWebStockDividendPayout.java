@@ -27,12 +27,12 @@ import org.htmlparser.util.NodeList;
 public class DataWebStockDividendPayout  extends HttpHelper
 {
 	/*
-	 * ´ÓÍøÂçÖĞ»ñµÃÄ³Ö»¹ÉÆ±µÄ·ÖºìÅÉÏ¢Òò×Ó
+	 * ä»ç½‘ç»œä¸­è·å¾—æŸåªè‚¡ç¥¨çš„åˆ†çº¢æ´¾æ¯å› å­
 	 * 
-	 * ·µ»ØÖµ£º
-	 *     ·µ»Ø0Îª³É¹¦£¬ÆäËûÖµÎªÊ§°Ü
-	 * ²ÎÊı£º
-	 *     container ½ÓÊÕÈİÆ÷
+	 * è¿”å›å€¼ï¼š
+	 *     è¿”å›0ä¸ºæˆåŠŸï¼Œå…¶ä»–å€¼ä¸ºå¤±è´¥
+	 * å‚æ•°ï¼š
+	 *     container æ¥æ”¶å®¹å™¨
 	 */
 	public int getDividendPayout(String id, List<DividendPayout> container)
 	{
@@ -51,7 +51,7 @@ public class DataWebStockDividendPayout  extends HttpHelper
 		if(id.contains("999999")) 
 		{
 			error = 0;
-			return error; // ÉÏÖ¤Ö¸ÊıÃ»ÓĞ·ÖºìÅÉÏ¢
+			return error; // ä¸Šè¯æŒ‡æ•°æ²¡æœ‰åˆ†çº¢æ´¾æ¯
 		}
 		
 		try{  
@@ -60,10 +60,10 @@ public class DataWebStockDividendPayout  extends HttpHelper
 			URL url = new URL(urlStr);    
 	        HttpURLConnection conn = (HttpURLConnection)url.openConnection();    
 
-	        conn.setConnectTimeout(5*1000);  //ÉèÖÃÁ¬½Ó³¬Ê±¼ä 
-	        conn.setReadTimeout(15*1000); //ÉèÖÃ¶ÁÈ¡³¬Ê±Ê±¼ä
+	        conn.setConnectTimeout(5*1000);  //è®¾ç½®è¿æ¥è¶…æ—¶é—´ 
+	        conn.setReadTimeout(15*1000); //è®¾ç½®è¯»å–è¶…æ—¶æ—¶é—´
 	        
-	        //·ÀÖ¹ÆÁ±Î³ÌĞò×¥È¡¶ø·µ»Ø403´íÎó  
+	        //é˜²æ­¢å±è”½ç¨‹åºæŠ“å–è€Œè¿”å›403é”™è¯¯  
 	        conn.setRequestProperty("User-Agent", getRandomUserAgent());  
 			InputStream inputStream = conn.getInputStream(); 
 			byte[] getData = readInputStream(inputStream); 
@@ -132,9 +132,9 @@ public class DataWebStockDividendPayout  extends HttpHelper
                     	String tmpStr = cTmpNodecol.toPlainTextString();
                     	//System.out.println(tmpStr);
                     	if(5 == j)
-                    		cDividendPayout.date = tmpStr; // ³ıÈ¨³ıÏ¢ÈÕ
+                    		cDividendPayout.date = tmpStr; // é™¤æƒé™¤æ¯æ—¥
                     	if(7 == j && cDividendPayout.date.length()<8)
-                    		cDividendPayout.date = tmpStr; // ºì¹ÉÉÏÊĞÈÕ
+                    		cDividendPayout.date = tmpStr; // çº¢è‚¡ä¸Šå¸‚æ—¥
                     	if(1 == j)
                     		cDividendPayout.songGu = Double.parseDouble(tmpStr);
                     	if(2 == j)
@@ -142,7 +142,7 @@ public class DataWebStockDividendPayout  extends HttpHelper
                     	if(3 == j)
                     		cDividendPayout.paiXi = Double.parseDouble(tmpStr);
                     }
-                    if(tablelist3.size() < 5) // Êı¾İÃ»ÓĞ
+                    if(tablelist3.size() < 5) // æ•°æ®æ²¡æœ‰
                     {
                     	continue;
                     }
@@ -187,7 +187,7 @@ public class DataWebStockDividendPayout  extends HttpHelper
 			if(e.getMessage().contains("Server returned HTTP response code: 456 for URL:"))
 			{
 				CLog.error("DATAAPI", "Exception[WebStockDayDetail]:%s, need to wait!", e.getMessage());
-				// ¸ßÆµ·ÃÎÊ¼ì²é, Í£Ö¹2·ÖÖÓ
+				// é«˜é¢‘è®¿é—®æ£€æŸ¥, åœæ­¢2åˆ†é’Ÿ
 				CThread.msleep(1000*60*6);
 			}
 			error = -1;

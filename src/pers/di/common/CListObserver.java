@@ -24,7 +24,7 @@ public class CListObserver<T> {
 		return m_iSize;
 	}
 	
-	// ¹¹½¨·ÃÎÊÆ÷
+	// æž„å»ºè®¿é—®å™¨
 	public boolean build(List<T> origin, int iBase, int iSize)
 	{
 		m_listContainer = origin;

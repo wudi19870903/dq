@@ -48,7 +48,7 @@ public abstract class CTest {
 			s_curTestInnnerErrorCount++;
 			
 			StackTraceElement[] trace = new Throwable().getStackTrace();
-	        // ÏÂ±êÎª0µÄÔªËØÊÇÉÏÒ»ĞĞÓï¾äµÄĞÅÏ¢, ÏÂ±êÎª1µÄ²ÅÊÇµ÷ÓÃprintLineµÄµØ·½µÄĞÅÏ¢
+	        // ä¸‹æ ‡ä¸º0çš„å…ƒç´ æ˜¯ä¸Šä¸€è¡Œè¯­å¥çš„ä¿¡æ¯, ä¸‹æ ‡ä¸º1çš„æ‰æ˜¯è°ƒç”¨printLineçš„åœ°æ–¹çš„ä¿¡æ¯
 	        StackTraceElement tmp = trace[1];
 	        outputProcess("[CTEST] NG(%d) expect(null) actual(object) (%s:%d)",
 	        		s_curTestInnnerErrorCount, 
@@ -63,7 +63,7 @@ public abstract class CTest {
 			s_curTestInnnerErrorCount++;
 			
 			StackTraceElement[] trace = new Throwable().getStackTrace();
-	        // ÏÂ±êÎª0µÄÔªËØÊÇÉÏÒ»ĞĞÓï¾äµÄĞÅÏ¢, ÏÂ±êÎª1µÄ²ÅÊÇµ÷ÓÃprintLineµÄµØ·½µÄĞÅÏ¢
+	        // ä¸‹æ ‡ä¸º0çš„å…ƒç´ æ˜¯ä¸Šä¸€è¡Œè¯­å¥çš„ä¿¡æ¯, ä¸‹æ ‡ä¸º1çš„æ‰æ˜¯è°ƒç”¨printLineçš„åœ°æ–¹çš„ä¿¡æ¯
 	        StackTraceElement tmp = trace[1];
 	        outputProcess("[CTEST] NG(%d) expect(null) actual(object) (%s:%d)",
 	        		s_curTestInnnerErrorCount, 
@@ -78,7 +78,7 @@ public abstract class CTest {
 			s_curTestInnnerErrorCount++;
 			
 			StackTraceElement[] trace = new Throwable().getStackTrace();
-	        // ÏÂ±êÎª0µÄÔªËØÊÇÉÏÒ»ĞĞÓï¾äµÄĞÅÏ¢, ÏÂ±êÎª1µÄ²ÅÊÇµ÷ÓÃprintLineµÄµØ·½µÄĞÅÏ¢
+	        // ä¸‹æ ‡ä¸º0çš„å…ƒç´ æ˜¯ä¸Šä¸€è¡Œè¯­å¥çš„ä¿¡æ¯, ä¸‹æ ‡ä¸º1çš„æ‰æ˜¯è°ƒç”¨printLineçš„åœ°æ–¹çš„ä¿¡æ¯
 	        StackTraceElement tmp = trace[1];
 	        outputProcess("[CTEST] NG(%d) expect(true) actual(%b) (%s:%d)",
 	        		s_curTestInnnerErrorCount, 
@@ -94,7 +94,7 @@ public abstract class CTest {
 			s_curTestInnnerErrorCount++;
 			
 			StackTraceElement[] trace = new Throwable().getStackTrace();
-	        // ÏÂ±êÎª0µÄÔªËØÊÇÉÏÒ»ĞĞÓï¾äµÄĞÅÏ¢, ÏÂ±êÎª1µÄ²ÅÊÇµ÷ÓÃprintLineµÄµØ·½µÄĞÅÏ¢
+	        // ä¸‹æ ‡ä¸º0çš„å…ƒç´ æ˜¯ä¸Šä¸€è¡Œè¯­å¥çš„ä¿¡æ¯, ä¸‹æ ‡ä¸º1çš„æ‰æ˜¯è°ƒç”¨printLineçš„åœ°æ–¹çš„ä¿¡æ¯
 	        StackTraceElement tmp = trace[1];
 	        outputProcess("[CTEST] NG(%d) expect(false) actual(%b) (%s:%d)",
 	        		s_curTestInnnerErrorCount, 
@@ -110,7 +110,7 @@ public abstract class CTest {
 			s_curTestInnnerErrorCount++;
 			
 			StackTraceElement[] trace = new Throwable().getStackTrace();
-	        // ÏÂ±êÎª0µÄÔªËØÊÇÉÏÒ»ĞĞÓï¾äµÄĞÅÏ¢, ÏÂ±êÎª1µÄ²ÅÊÇµ÷ÓÃprintLineµÄµØ·½µÄĞÅÏ¢
+	        // ä¸‹æ ‡ä¸º0çš„å…ƒç´ æ˜¯ä¸Šä¸€è¡Œè¯­å¥çš„ä¿¡æ¯, ä¸‹æ ‡ä¸º1çš„æ‰æ˜¯è°ƒç”¨printLineçš„åœ°æ–¹çš„ä¿¡æ¯
 	        StackTraceElement tmp = trace[1];
 	        outputProcess("[CTEST] NG(%d) expect(%s) actual(%s) (%s:%d)",
 	        		s_curTestInnnerErrorCount, 
@@ -126,7 +126,7 @@ public abstract class CTest {
 			s_curTestInnnerErrorCount++;
 			
 			StackTraceElement[] trace = new Throwable().getStackTrace();
-	        // ÏÂ±êÎª0µÄÔªËØÊÇÉÏÒ»ĞĞÓï¾äµÄĞÅÏ¢, ÏÂ±êÎª1µÄ²ÅÊÇµ÷ÓÃprintLineµÄµØ·½µÄĞÅÏ¢
+	        // ä¸‹æ ‡ä¸º0çš„å…ƒç´ æ˜¯ä¸Šä¸€è¡Œè¯­å¥çš„ä¿¡æ¯, ä¸‹æ ‡ä¸º1çš„æ‰æ˜¯è°ƒç”¨printLineçš„åœ°æ–¹çš„ä¿¡æ¯
 	        StackTraceElement tmp = trace[1];
 	        outputProcess("[CTEST] NG(%d) !expect(%s) actual(%s) (%s:%d)",
 	        		s_curTestInnnerErrorCount, 
@@ -142,7 +142,7 @@ public abstract class CTest {
 			s_curTestInnnerErrorCount++;
 			
 			StackTraceElement[] trace = new Throwable().getStackTrace();
-	        // ÏÂ±êÎª0µÄÔªËØÊÇÉÏÒ»ĞĞÓï¾äµÄĞÅÏ¢, ÏÂ±êÎª1µÄ²ÅÊÇµ÷ÓÃprintLineµÄµØ·½µÄĞÅÏ¢
+	        // ä¸‹æ ‡ä¸º0çš„å…ƒç´ æ˜¯ä¸Šä¸€è¡Œè¯­å¥çš„ä¿¡æ¯, ä¸‹æ ‡ä¸º1çš„æ‰æ˜¯è°ƒç”¨printLineçš„åœ°æ–¹çš„ä¿¡æ¯
 	        StackTraceElement tmp = trace[1];
 	        outputProcess("[CTEST] NG(%d) expect(%d) actual(%d) (%s:%d)",
 	        		s_curTestInnnerErrorCount, 
@@ -158,7 +158,7 @@ public abstract class CTest {
 			s_curTestInnnerErrorCount++;
 			
 			StackTraceElement[] trace = new Throwable().getStackTrace();
-	        // ÏÂ±êÎª0µÄÔªËØÊÇÉÏÒ»ĞĞÓï¾äµÄĞÅÏ¢, ÏÂ±êÎª1µÄ²ÅÊÇµ÷ÓÃprintLineµÄµØ·½µÄĞÅÏ¢
+	        // ä¸‹æ ‡ä¸º0çš„å…ƒç´ æ˜¯ä¸Šä¸€è¡Œè¯­å¥çš„ä¿¡æ¯, ä¸‹æ ‡ä¸º1çš„æ‰æ˜¯è°ƒç”¨printLineçš„åœ°æ–¹çš„ä¿¡æ¯
 	        StackTraceElement tmp = trace[1];
 	        outputProcess("[CTEST] NG(%d) !expect(%d) actual(%d) (%s:%d)",
 	        		s_curTestInnnerErrorCount, 
@@ -178,7 +178,7 @@ public abstract class CTest {
 			s_curTestInnnerErrorCount++;
 			
 			StackTraceElement[] trace = new Throwable().getStackTrace();
-	        // ÏÂ±êÎª0µÄÔªËØÊÇÉÏÒ»ĞĞÓï¾äµÄĞÅÏ¢, ÏÂ±êÎª1µÄ²ÅÊÇµ÷ÓÃprintLineµÄµØ·½µÄĞÅÏ¢
+	        // ä¸‹æ ‡ä¸º0çš„å…ƒç´ æ˜¯ä¸Šä¸€è¡Œè¯­å¥çš„ä¿¡æ¯, ä¸‹æ ‡ä¸º1çš„æ‰æ˜¯è°ƒç”¨printLineçš„åœ°æ–¹çš„ä¿¡æ¯
 	        StackTraceElement tmp = trace[1];
 
 	        outputProcess("[CTEST] NG(%d) expect(%s) actual(%s) (%s:%d)",
@@ -194,7 +194,7 @@ public abstract class CTest {
 			s_curTestInnnerErrorCount++;
 			
 			StackTraceElement[] trace = new Throwable().getStackTrace();
-	        // ÏÂ±êÎª0µÄÔªËØÊÇÉÏÒ»ĞĞÓï¾äµÄĞÅÏ¢, ÏÂ±êÎª1µÄ²ÅÊÇµ÷ÓÃprintLineµÄµØ·½µÄĞÅÏ¢
+	        // ä¸‹æ ‡ä¸º0çš„å…ƒç´ æ˜¯ä¸Šä¸€è¡Œè¯­å¥çš„ä¿¡æ¯, ä¸‹æ ‡ä¸º1çš„æ‰æ˜¯è°ƒç”¨printLineçš„åœ°æ–¹çš„ä¿¡æ¯
 	        StackTraceElement tmp = trace[1];
 	        
 	        DecimalFormat df = new DecimalFormat();

@@ -5,7 +5,7 @@ import java.util.*;
 import pers.di.common.*;
 
 /*
- * Ê±¼äÍÆ½øÆ÷, ¿É¶¨ÖÆ¼Æ»®ÈÎÎñ
+ * æ—¶é—´æ¨è¿›å™¨, å¯å®šåˆ¶è®¡åˆ’ä»»åŠ¡
  */
 public class CDateTimeThruster {
 	
@@ -16,10 +16,10 @@ public class CDateTimeThruster {
 		
 		/**
 		 * 
-		 * @param name ¼Æ»®ÈÎÎñÃû³Æ
-		 * @param datetime ¼Æ»®ÈÎÎñÖ´ĞĞÊ±¼ä
+		 * @param name è®¡åˆ’ä»»åŠ¡åç§°
+		 * @param datetime è®¡åˆ’ä»»åŠ¡æ‰§è¡Œæ—¶é—´
 		 *        08:20:30
-		 * @param priority ¼Æ»®ÈÎÎñÖ´ĞĞÓÅÏÈ¼¶  Ô¼Ğ¡Ô¼¸ß Í¬Ò»Ê±¼ä´¥·¢Ê±°´ÓÅÏÈ¼¶Ö´ĞĞ
+		 * @param priority è®¡åˆ’ä»»åŠ¡æ‰§è¡Œä¼˜å…ˆçº§  çº¦å°çº¦é«˜ åŒä¸€æ—¶é—´è§¦å‘æ—¶æŒ‰ä¼˜å…ˆçº§æ‰§è¡Œ
 		 *             
 		 */
 		public ScheduleTask(String name, String time, int priority)
@@ -144,11 +144,11 @@ public class CDateTimeThruster {
 	
 	
 	/*
-	 * ÅäÖÃÊ±¼äÖáÄ£Ê½
+	 * é…ç½®æ—¶é—´è½´æ¨¡å¼
 	 * 
-	 * key: "TriggerMode" ´¥·¢Ä£Ê½
-	 *     value: "HistoryTest XXXX-XX-XX XXXX-XXXX-XX" ÀúÊ·»Ø²â
-	 *     value: "Realtime" ÊµÊ±
+	 * key: "TriggerMode" è§¦å‘æ¨¡å¼
+	 *     value: "HistoryTest XXXX-XX-XX XXXX-XXXX-XX" å†å²å›æµ‹
+	 *     value: "Realtime" å®æ—¶
 	 */
 	public int config(String key, String value)
 	{
@@ -212,14 +212,14 @@ public class CDateTimeThruster {
 			{
 				CUtilsDateTime.WAITRESULT wr = waitForDateTime(m_curDate, waitToTime, m_mainTimeTaskListWaitObj);
 				
-				// µ±Ìì½áÊøÅĞ¶Ï
+				// å½“å¤©ç»“æŸåˆ¤æ–­
 				if(waitToTime.compareTo("23:59:00") >= 0
 						&& (wr == CUtilsDateTime.WAITRESULT.TIME_IS_UP || wr == CUtilsDateTime.WAITRESULT.TIME_HAS_GONE))
 				{
-					break; // µ±ÈíÈÎÎñµ÷¶È½áÊø
+					break; // å½“è½¯ä»»åŠ¡è°ƒåº¦ç»“æŸ
 				}
 				
-				// ÈÎÎñµ½Ê±
+				// ä»»åŠ¡åˆ°æ—¶
 				if(CUtilsDateTime.WAITRESULT.TIME_IS_UP == wr)
 				{
 					m_curTime = waitToTime;

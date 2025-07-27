@@ -177,7 +177,7 @@ public class CXmlTable {
 				return false;
 			}
 
-			// »ñµÃ×îÖÕoriXmlStr
+			// è·å¾—æœ€ç»ˆoriXmlStr
 			String oriXmlStr ="";
 			if(null != m_doc && null != transformer)
 			{
@@ -196,7 +196,7 @@ public class CXmlTable {
 				}
 			}
 			
-			// ¸ñÊ½»¯XmlStr
+			// æ ¼å¼åŒ–XmlStr
 			String formatedXmlStr = "";
 			try {
 				formatedXmlStr = CUtilsXML.format(oriXmlStr);
@@ -205,7 +205,7 @@ public class CXmlTable {
 				return false;
 			}
 			
-			// ¸üĞÂµ½ÎÄ¼ş
+			// æ›´æ–°åˆ°æ–‡ä»¶
 			File cfile_new = new File(m_fileName);
 			try {
 				FileWriter fw = new FileWriter(cfile_new.getAbsoluteFile());
@@ -236,7 +236,7 @@ public class CXmlTable {
 				//fmt.format("XML:\n" + xmlStr);
 				if(xmlStr.length()<=0)
 				{
-					return false; // Ã»ÓĞÄÚÈİ loadÊ§°Ü
+					return false; // æ²¡æœ‰å†…å®¹ loadå¤±è´¥
 				}
 				
 				DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
@@ -268,7 +268,7 @@ public class CXmlTable {
 			return false;
 		}
 
-		// »ñµÃ×îÖÕoriXmlStr
+		// è·å¾—æœ€ç»ˆoriXmlStr
 		String oriXmlStr ="";
 		if(null != m_doc && null != transformer)
 		{
@@ -287,7 +287,7 @@ public class CXmlTable {
 			}
 		}
 		
-		// ¸ñÊ½»¯XmlStr
+		// æ ¼å¼åŒ–XmlStr
 		String formatedXmlStr = "";
 		try {
 			formatedXmlStr = CUtilsXML.format(oriXmlStr);
@@ -296,7 +296,7 @@ public class CXmlTable {
 			return false;
 		}
 		
-		// ¸üĞÂµ½ÎÄ¼ş
+		// æ›´æ–°åˆ°æ–‡ä»¶
 		File cfile_new = new File(m_fileName);
 		try {
 			FileWriter fw = new FileWriter(cfile_new.getAbsoluteFile());

@@ -130,7 +130,7 @@ public class CLog {
 		            WatchKey key=m_WatchService.take();  
 		            for(WatchEvent<?> event:key.pollEvents())  
 		            {  
-		                //System.out.println(event.context()+"·¢ÉúÁË"+event.kind()+"ÊÂ¼þ");  
+		                //System.out.println(event.context()+"å‘ç”Ÿäº†"+event.kind()+"äº‹ä»¶");  
 		                if(event.context().toString().equals(CLog.s_strLogConfigName))
 		                {
 		                	CLog.reloadConfig();
@@ -287,7 +287,7 @@ public class CLog {
 		    Document doc = builder.parse(is);
 		    Element rootElement = doc.getDocumentElement();
 		    
-		    // ¼ì²é·µ»ØÊý¾ÝÓÐÐ§ÐÔ
+		    // æ£€æŸ¥è¿”å›žæ•°æ®æœ‰æ•ˆæ€§
 		    if(!rootElement.getTagName().contains("config")) 
 		    	return;
 	
@@ -385,7 +385,7 @@ public class CLog {
 		}
 		else
 		{
-			cLogOutRequest.doAction(); // ÎÞlog¹¤×÷Ïß³ÌÖ±½ÓÊä³ö
+			cLogOutRequest.doAction(); // æ— logå·¥ä½œçº¿ç¨‹ç›´æŽ¥è¾“å‡º
 		}
 	}
 	
@@ -399,7 +399,7 @@ public class CLog {
 			currentOutputContent = s_contentCache.popContent();
 			s_contentCache.unlock();
 			
-			// ¿ªÊ¼Êä³ö
+			// å¼€å§‹è¾“å‡º
 			if(null != currentOutputContent && currentOutputContent.length() > 0)
 			{
 				outputConsole(currentOutputContent);
@@ -450,7 +450,7 @@ public class CLog {
 			currentOutputContent = logbuf;
 		}
 		
-		// ¿ªÊ¼Êä³ö
+		// å¼€å§‹è¾“å‡º
 		if(null != currentOutputContent && currentOutputContent.length() > 0)
 		{
 			outputConsole(currentOutputContent);

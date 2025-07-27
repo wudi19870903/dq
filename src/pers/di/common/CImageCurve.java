@@ -67,7 +67,7 @@ public class CImageCurve {
 	
 	public void GenerateImage()
 	{   
-		// »æÖÆ¶àÌõYÍ¬±ÈÇúÏß
+		// ç»˜åˆ¶å¤šæ¡YåŒæ¯”æ›²çº¿
 		writeMultiLogicCurveSameRatio();
 		
         try {
@@ -84,7 +84,7 @@ public class CImageCurve {
 		public Color color;
 		public List<CurvePoint> curvePoint;
 	}
-	// Ãè»­ÈÎÒâÊıÖµÇúÏß£¬ ´ËÇúÏß½«Ó³Éäµ½Í¼Æ¬ÉÏ£¬¶àÇúÏßYÍ¬±ÈÀıµ÷Õû
+	// æç”»ä»»æ„æ•°å€¼æ›²çº¿ï¼Œ æ­¤æ›²çº¿å°†æ˜ å°„åˆ°å›¾ç‰‡ä¸Šï¼Œå¤šæ›²çº¿YåŒæ¯”ä¾‹è°ƒæ•´
 	public void writeLogicCurveSameRatio(List<CurvePoint> LogicPoiList)
 	{
 		if(LogicPoiList.size() == 0) return;
@@ -126,31 +126,31 @@ public class CImageCurve {
 			{
 				double val = cPoi.m_y;
 				double rate = (cPoi.m_y - beginy)/beginy*100;
-				if(i == 0 || i == LogicPoiList.size() -1) // Í·Î²´øÎÄ×Ö
+				if(i == 0 || i == LogicPoiList.size() -1) // å¤´å°¾å¸¦æ–‡å­—
 				{
 					textstr = String.format("(%.2f, %.2f%%)", val, rate);
 				}
 				if(AutoWriteTextSpan > 0)
 				{
 					if((i%AutoWriteTextSpan == 0 && 
-							i > 0 && i < LogicPoiList.size() - AutoWriteTextSpan/2) ) // ÖĞ¼ä²¿·Ö¹Ì¶¨¿ç¶È´øÎÄ×Ö
+							i > 0 && i < LogicPoiList.size() - AutoWriteTextSpan/2) ) // ä¸­é—´éƒ¨åˆ†å›ºå®šè·¨åº¦å¸¦æ–‡å­—
 					{
 						textstr = String.format("(%.2f, %.2f%%)", val, rate);
 						iPreSpan = i;
 					}
-					if(0 == Double.compare(max_logic_y, val) && !bHighTextOut) // ×î¸ß×îµÍ´øÎÄ×Ö
+					if(0 == Double.compare(max_logic_y, val) && !bHighTextOut) // æœ€é«˜æœ€ä½å¸¦æ–‡å­—
 					{
 						if( iPreSpan+AutoWriteTextSpan-i >=  AutoWriteTextSpan/4 
-								&& LogicPoiList.size()-1-i >= AutoWriteTextSpan/4) // ±ÜÃâÓëÏÂÒ»¸öÎÄ×Ö¹ı·ÖÖØºÏ
+								&& LogicPoiList.size()-1-i >= AutoWriteTextSpan/4) // é¿å…ä¸ä¸‹ä¸€ä¸ªæ–‡å­—è¿‡åˆ†é‡åˆ
 						{
 							textstr = String.format("(%.2f, %.2f%%)", val, rate);
 							bHighTextOut = true;
 						}
 					}
-					if(0 == Double.compare(min_logic_y, val) && !bLowTextOut) // ×î¸ß×îµÍ´øÎÄ×Ö
+					if(0 == Double.compare(min_logic_y, val) && !bLowTextOut) // æœ€é«˜æœ€ä½å¸¦æ–‡å­—
 					{
 						if( iPreSpan+AutoWriteTextSpan-i >=  AutoWriteTextSpan/4 
-								&& LogicPoiList.size()-1-i >= AutoWriteTextSpan/4) // ±ÜÃâÓëÏÂÒ»¸öÎÄ×Ö¹ı·ÖÖØºÏ
+								&& LogicPoiList.size()-1-i >= AutoWriteTextSpan/4) // é¿å…ä¸ä¸‹ä¸€ä¸ªæ–‡å­—è¿‡åˆ†é‡åˆ
 						{
 							textstr = String.format("(%.2f, %.2f%%)", val, rate);
 							bLowTextOut = true;
@@ -168,7 +168,7 @@ public class CImageCurve {
 	}
 	public void writeMultiLogicCurveSameRatio()
 	{
-		//ÕÒµ½×î´óy
+		//æ‰¾åˆ°æœ€å¤§y
 		double fMaxY = 0.0f; 
 		for (int iCurve=0; iCurve<m_cSameRatioLogicCurveList.size(); iCurve++) {  
 			
@@ -183,7 +183,7 @@ public class CImageCurve {
 		}  
 		fMaxY = fMaxY*1.10f;
 		
-		// ¸ß¶ÈÍ¬±È»¯
+		// é«˜åº¦åŒæ¯”åŒ–
 		for (int iCurve=0; iCurve<m_cSameRatioLogicCurveList.size(); iCurve++) {  
 			
 			Color color = m_cSameRatioLogicCurveList.get(iCurve).color;
@@ -194,13 +194,13 @@ public class CImageCurve {
 				CurvePoint cPoi = cCurPoiList.get(i);
 				cPoi.m_y = cPoi.m_y / fMaxY;
 			} 
-			// »æÖÆµ¥Î»ÇúÏßµ½Í¼Ïñ
+			// ç»˜åˆ¶å•ä½æ›²çº¿åˆ°å›¾åƒ
 			this.setColor(color);
 			writeUnitCurve(cCurPoiList);
 		} 
 	}
 	
-	// Ãè»­ÈÎÒâÊıÖµÇúÏß£¬ ´ËÇúÏß½«Ó³Éäµ½Í¼Æ¬ÉÏ£¬Y×Ô±ÈÀıµ÷Õû£¬ÓëÆäËûÇúÏßÎŞ¹Ø
+	// æç”»ä»»æ„æ•°å€¼æ›²çº¿ï¼Œ æ­¤æ›²çº¿å°†æ˜ å°„åˆ°å›¾ç‰‡ä¸Šï¼ŒYè‡ªæ¯”ä¾‹è°ƒæ•´ï¼Œä¸å…¶ä»–æ›²çº¿æ— å…³
 	public void writeLogicCurve(List<CurvePoint> LogicPoiList)
 	{
 		if(LogicPoiList.size() == 0) return;
@@ -239,20 +239,20 @@ public class CImageCurve {
 			{
 				double val = cPoi.m_y;
 				double rate = (cPoi.m_y - beginy)/beginy*100;
-				if(i == 0 || i == LogicPoiList.size() -1) // Í·Î²´øÎÄ×Ö
+				if(i == 0 || i == LogicPoiList.size() -1) // å¤´å°¾å¸¦æ–‡å­—
 				{
 					textstr = String.format("(%.2f, %.2f%%)", val, rate);
 				}
 				if(AutoWriteTextSpan!=0 && (i%AutoWriteTextSpan == 0 && 
-						i > 0 && i < LogicPoiList.size() - AutoWriteTextSpan/2) ) // ÖĞ¼ä²¿·Ö¹Ì¶¨¿ç¶È´øÎÄ×Ö
+						i > 0 && i < LogicPoiList.size() - AutoWriteTextSpan/2) ) // ä¸­é—´éƒ¨åˆ†å›ºå®šè·¨åº¦å¸¦æ–‡å­—
 				{
 					textstr = String.format("(%.2f, %.2f%%)", val, rate);
 					iPreSpan = i;
 				}
-				if(0 == Double.compare(max_logic_y, val) || 0 == Double.compare(min_logic_y, val)) // ×î¸ß×îµÍ´øÎÄ×Ö
+				if(0 == Double.compare(max_logic_y, val) || 0 == Double.compare(min_logic_y, val)) // æœ€é«˜æœ€ä½å¸¦æ–‡å­—
 				{
 					if( iPreSpan+AutoWriteTextSpan-i >=  AutoWriteTextSpan/4 
-							&& LogicPoiList.size()-1-i >= AutoWriteTextSpan/4) // ±ÜÃâÓëÏÂÒ»¸öÎÄ×Ö¹ı·ÖÖØºÏ
+							&& LogicPoiList.size()-1-i >= AutoWriteTextSpan/4) // é¿å…ä¸ä¸‹ä¸€ä¸ªæ–‡å­—è¿‡åˆ†é‡åˆ
 					{
 						textstr = String.format("(%.2f, %.2f%%)", val, rate);
 					}
@@ -264,7 +264,7 @@ public class CImageCurve {
 		writeUnitCurve(poiUnitList);
 	}
 	
-    // °´µ¥Î»1Ãè»­£¬Í¼Æ¬×ó²àÖĞµãÎª(0,0)£¬ÓÒÉÏ½ÇÎª (0,1)£¬Âß¼­ÊıÖµÎŞµ¥Î»
+    // æŒ‰å•ä½1æç”»ï¼Œå›¾ç‰‡å·¦ä¾§ä¸­ç‚¹ä¸º(0,0)ï¼Œå³ä¸Šè§’ä¸º (0,1)ï¼Œé€»è¾‘æ•°å€¼æ— å•ä½
 	public void writeUnitCurve(List<CurvePoint> poiList)
 	{
 		List<CurvePoint> poiPixList = new ArrayList<CurvePoint>();
@@ -290,13 +290,13 @@ public class CImageCurve {
 		writeImagePixelLine(newX0, newY0, newX1, newY1);
 	}
 	
-	// °´Êµ¼ÊÍ¼Æ¬ÏñËØÃè»­ÇúÏß£¬Í¼Æ¬×óÉÏÎª£¨0.0£©£¬ÓÒÏÂ½ÇÎªÍ¼Æ¬×î´ó³¤¿í£¬µ¥Î»ÊÇÏñËØ
+	// æŒ‰å®é™…å›¾ç‰‡åƒç´ æç”»æ›²çº¿ï¼Œå›¾ç‰‡å·¦ä¸Šä¸ºï¼ˆ0.0ï¼‰ï¼Œå³ä¸‹è§’ä¸ºå›¾ç‰‡æœ€å¤§é•¿å®½ï¼Œå•ä½æ˜¯åƒç´ 
 	public void writeImagePixelCurve(List<CurvePoint> poiList)
 	{
-		// »æÖÆÏß¶ÎÓëÎÄ×Ö
+		// ç»˜åˆ¶çº¿æ®µä¸æ–‡å­—
 		for(int i = 0; i < poiList.size(); i++)  
         {  
-			// »æÖÆÏß¶Î
+			// ç»˜åˆ¶çº¿æ®µ
 			if(i <  poiList.size() - 1)
 			{
 				CurvePoint cPoiBegin = poiList.get(i); 
@@ -307,7 +307,7 @@ public class CImageCurve {
 				int EndY = (int)cPoiEnd.m_y;
 				m_g2.drawLine(BeginX, BeginY, EndX, EndY);
 			}
-			// »æÖÆÎÄ×Ö
+			// ç»˜åˆ¶æ–‡å­—
 			{
 				CurvePoint cPoi = poiList.get(i); 
 				if (cPoi.m_name != "")
@@ -318,7 +318,7 @@ public class CImageCurve {
 			}
         }
 		
-		// »æÖÆ±ê¼Ç
+		// ç»˜åˆ¶æ ‡è®°
 		storeColor();
 		m_g2.setColor(Color.RED);
 		for(int i = 0; i < poiList.size(); i++)  
@@ -383,14 +383,14 @@ public class CImageCurve {
 		m_g2.setPaint(Color.BLACK);   
         Font font = new Font(Font.MONOSPACED,Font.BOLD, 15);   
         m_g2.setFont(font);
-        m_g2.setStroke(new BasicStroke(1.0f)); // Ïß´ÖÏ¸
+        m_g2.setStroke(new BasicStroke(1.0f)); // çº¿ç²—ç»†
         
     	m_padding_x = (int)(m_widthPix * 0.1f);
     	m_padding_y = (int)(m_hightPix * 0.05f);
     	m_unitWidth = (int)(m_widthPix - 2.5*m_padding_x);
     	m_unitHight = (int)((m_hightPix - 2*m_padding_y)/2.0f);
     	
-//    	// Ãè»­×ø±êÏµ
+//    	// æç”»åæ ‡ç³»
 //    	List<CurvePoint> PoiList_linex = new ArrayList<CurvePoint>();
 //    	PoiList_linex.add(new CurvePoint(0.0f,0.0f));
 //    	PoiList_linex.add(new CurvePoint(1.0f,0.0f));
@@ -428,17 +428,17 @@ public class CImageCurve {
 	
 	private Color m_currentColor;
 	
-	// Í¬±ÈÀı¶àÇúÏß±í£¬µã¼ÇÂ¼µÄÊÇUnitÊı¾İ£¬×î´óYÎªµ¥Î»1
+	// åŒæ¯”ä¾‹å¤šæ›²çº¿è¡¨ï¼Œç‚¹è®°å½•çš„æ˜¯Unitæ•°æ®ï¼Œæœ€å¤§Yä¸ºå•ä½1
 	private List<SameRatioLogicCurveItem> m_cSameRatioLogicCurveList;
 	
 
-    //×ø±êÏµ²ÎÊı
+    //åæ ‡ç³»å‚æ•°
 	private int m_padding_x;
 	private int m_padding_y;
 	private int m_unitWidth;
 	private int m_unitHight;
 
-	// Í¼Ïñ²ÎÊı
+	// å›¾åƒå‚æ•°
 	private BufferedImage m_bi;
 	private Graphics2D m_g2;
 	private int m_widthPix;

@@ -34,16 +34,16 @@ public class TransactionRecordHistory extends HttpHelper
 {
 	
 	/*
-	 * ´ÓÍøÂçÄ³Ö»¹ÉÆ±Ä³ÈÕÄÚµÄ½»Ò×Ï¸½ÚÊı¾İ
+	 * ä»ç½‘ç»œæŸåªè‚¡ç¥¨æŸæ—¥å†…çš„äº¤æ˜“ç»†èŠ‚æ•°æ®
 	 * 
-	 * ·µ»ØÖµ£º
-	 *     ·µ»Ø0Îª³É¹¦£¬ÆäËûÖµÎªÊ§°Ü
-	 * ²ÎÊı£º
-	 *     ÉÏº£¹ÉÆ±£º60****
-	 *     ÉîÛÚ¹ÉÆ±£º00****»ò30****
-	 *     container ½ÓÊÕÈİÆ÷
+	 * è¿”å›å€¼ï¼š
+	 *     è¿”å›0ä¸ºæˆåŠŸï¼Œå…¶ä»–å€¼ä¸ºå¤±è´¥
+	 * å‚æ•°ï¼š
+	 *     ä¸Šæµ·è‚¡ç¥¨ï¼š60****
+	 *     æ·±åœ³è‚¡ç¥¨ï¼š00****æˆ–30****
+	 *     container æ¥æ”¶å®¹å™¨
 	 *     
-	 * ÆäËû£º
+	 * å…¶ä»–ï¼š
 	 *     doc: https://blog.csdn.net/weixin_42163573/article/details/81256348
 	 *     v1.0: url: e.g. "http://market.finance.sina.com.cn/downxls.php?date=2015-02-16&symbol=sz300163"
 	 *     v2.0: url: e.g. "http://market.finance.sina.com.cn/transHis.php?symbol=sz000001&date=2018-04-27&page=78"
@@ -80,14 +80,14 @@ public class TransactionRecordHistory extends HttpHelper
 //			URL url = new URL(urlStr);    
 //	        HttpURLConnection conn = (HttpURLConnection)url.openConnection();    
 //	                 
-//	        conn.setConnectTimeout(5*1000);  //ÉèÖÃÁ¬½Ó³¬Ê±¼ä 
-//	        conn.setReadTimeout(15*1000); //ÉèÖÃ¶ÁÈ¡³¬Ê±Ê±¼ä
+//	        conn.setConnectTimeout(5*1000);  //è®¾ç½®è¿æ¥è¶…æ—¶é—´ 
+//	        conn.setReadTimeout(15*1000); //è®¾ç½®è¯»å–è¶…æ—¶æ—¶é—´
 //	        
-//	        //·ÀÖ¹ÆÁ±Î³ÌĞò×¥È¡¶ø·µ»Ø403´íÎó  
+//	        //é˜²æ­¢å±è”½ç¨‹åºæŠ“å–è€Œè¿”å›403é”™è¯¯  
 //	        conn.setRequestProperty("User-Agent", getRandomUserAgent());  
-//	        //µÃµ½ÊäÈëÁ÷  
+//	        //å¾—åˆ°è¾“å…¥æµ  
 //	        InputStream inputStream = conn.getInputStream();   
-//	        //»ñÈ¡×Ô¼ºÊı×é  
+//	        //è·å–è‡ªå·±æ•°ç»„  
 //	        byte[] getData = readInputStream(inputStream);    
 //	        String data = new String(getData, "gbk");  
 //	        //System.out.println(data);
@@ -120,7 +120,7 @@ public class TransactionRecordHistory extends HttpHelper
 //			if(e.getMessage().contains("Server returned HTTP response code: 456 for URL:"))
 //			{
 //				CLog.error("DATAAPI", "Exception[WebStockDayDetail]:%s, need to wait!", e.getMessage());
-//				// ¸ßÆµ·ÃÎÊ¼ì²é, Í£Ö¹6·ÖÖÓ
+//				// é«˜é¢‘è®¿é—®æ£€æŸ¥, åœæ­¢6åˆ†é’Ÿ
 //				CThread.msleep(1000*60*6);
 //			}
 //			error = -1;
@@ -133,18 +133,18 @@ public class TransactionRecordHistory extends HttpHelper
 	
 
 	/*
-	 * ´ÓÍøÂçÄ³Ö»¹ÉÆ±Ä³ÈÕÄÚµÄ½»Ò×Ï¸½ÚÊı¾İ
+	 * ä»ç½‘ç»œæŸåªè‚¡ç¥¨æŸæ—¥å†…çš„äº¤æ˜“ç»†èŠ‚æ•°æ®
 	 * 
-	 * ·µ»ØÖµ£º
-	 *     ·µ»Ø0Îª³É¹¦£¬ÆäËûÖµÎªÊ§°Ü
-	 * ²ÎÊı£º
+	 * è¿”å›å€¼ï¼š
+	 *     è¿”å›0ä¸ºæˆåŠŸï¼Œå…¶ä»–å€¼ä¸ºå¤±è´¥
+	 * å‚æ•°ï¼š
 	 *     id: "600000"
-	 *         ÉÏº£¹ÉÆ±£º60****
-	 *         ÉîÛÚ¹ÉÆ±£º00****»ò30****
+	 *         ä¸Šæµ·è‚¡ç¥¨ï¼š60****
+	 *         æ·±åœ³è‚¡ç¥¨ï¼š00****æˆ–30****
 	 *     date: "2018-07-17"
-	 *     container ½ÓÊÕÈİÆ÷
+	 *     container æ¥æ”¶å®¹å™¨
 	 *     
-	 * ÆäËû£º
+	 * å…¶ä»–ï¼š
 	 *     V3: url: e.g. "http://stock.gtimg.cn/data/index.php?appn=detail&action=download&c=sh600103&d=20170124"
 	 *     V2: url: e.g. "http://market.finance.sina.com.cn/transHis.php?symbol=sz000001&date=2018-07-17&page=3"
 	 */
@@ -172,7 +172,7 @@ public class TransactionRecordHistory extends HttpHelper
 		if(id.contains("999999")) 
 		{
 			error = 0;
-			return error; // ÉÏÖ¤Ö¸ÊıÃ»ÓĞ½»Ò×Ã÷Ï¸
+			return error; // ä¸Šè¯æŒ‡æ•°æ²¡æœ‰äº¤æ˜“æ˜ç»†
 		}
 		
 		// add symbol=sz000001
@@ -205,10 +205,10 @@ public class TransactionRecordHistory extends HttpHelper
 				URL url = new URL(curPageUrlStr);    
 		        HttpURLConnection conn = (HttpURLConnection)url.openConnection();    
 
-		        conn.setConnectTimeout(5*1000);  //ÉèÖÃÁ¬½Ó³¬Ê±¼ä 
-		        conn.setReadTimeout(15*1000); //ÉèÖÃ¶ÁÈ¡³¬Ê±Ê±¼ä
+		        conn.setConnectTimeout(5*1000);  //è®¾ç½®è¿æ¥è¶…æ—¶é—´ 
+		        conn.setReadTimeout(15*1000); //è®¾ç½®è¯»å–è¶…æ—¶æ—¶é—´
 		        
-		        //·ÀÖ¹ÆÁ±Î³ÌĞò×¥È¡¶ø·µ»Ø403´íÎó  
+		        //é˜²æ­¢å±è”½ç¨‹åºæŠ“å–è€Œè¿”å›403é”™è¯¯  
 		        String randomUA = getRandomUserAgent();
 		        conn.setRequestProperty("User-Agent", randomUA);  
 				InputStream inputStream = conn.getInputStream(); 
@@ -259,7 +259,7 @@ public class TransactionRecordHistory extends HttpHelper
 	                
 	                if(0==i)
 	                {
-	                	if(!ColTranTime.equals("³É½»Ê±¼ä")  || !ColTranPrice.equals("³É½»¼Û") || !ColTranCol.equals("³É½»Á¿(ÊÖ)") )
+	                	if(!ColTranTime.equals("æˆäº¤æ—¶é—´")  || !ColTranPrice.equals("æˆäº¤ä»·") || !ColTranCol.equals("æˆäº¤é‡(æ‰‹)") )
 	                	{
 	                		error = -20;
 	            			return error;
@@ -312,7 +312,7 @@ public class TransactionRecordHistory extends HttpHelper
 		if(id.contains("999999")) 
 		{
 			error = 0;
-			return error; // ÉÏÖ¤Ö¸ÊıÃ»ÓĞ½»Ò×Ã÷Ï¸
+			return error; // ä¸Šè¯æŒ‡æ•°æ²¡æœ‰äº¤æ˜“æ˜ç»†
 		}
 		
 		// add symbol=sz000001
@@ -341,16 +341,16 @@ public class TransactionRecordHistory extends HttpHelper
 			URL url = new URL(urlStr);    
 	        HttpURLConnection conn = (HttpURLConnection)url.openConnection();    
 
-	        conn.setConnectTimeout(5*1000);  //ÉèÖÃÁ¬½Ó³¬Ê±¼ä 
-	        conn.setReadTimeout(15*1000); //ÉèÖÃ¶ÁÈ¡³¬Ê±Ê±¼ä
+	        conn.setConnectTimeout(5*1000);  //è®¾ç½®è¿æ¥è¶…æ—¶é—´ 
+	        conn.setReadTimeout(15*1000); //è®¾ç½®è¯»å–è¶…æ—¶æ—¶é—´
 	        
-	        //·ÀÖ¹ÆÁ±Î³ÌĞò×¥È¡¶ø·µ»Ø403´íÎó  
+	        //é˜²æ­¢å±è”½ç¨‹åºæŠ“å–è€Œè¿”å›403é”™è¯¯  
 	        String randomUA = getRandomUserAgent();
 	        conn.setRequestProperty("User-Agent", randomUA);  
 			InputStream inputStream = conn.getInputStream(); 
 			byte[] getData = readInputStream(inputStream); 
 			String data = new String(getData, "gbk");  
-			if(null == data || data.equals("ÔİÎŞÊı¾İ") || data.length()<10)
+			if(null == data || data.equals("æš‚æ— æ•°æ®") || data.length()<10)
 			{
 				return -20;
 			}

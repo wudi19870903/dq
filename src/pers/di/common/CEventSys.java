@@ -124,16 +124,16 @@ public class CEventSys {
 					
 					CLog.debug("COMMON", "Receiver(%s) EvName(%s) jsonObj(...)\n", m_receiver.m_ReceiverName, name);
 					
-					// ÍË³öÃüÁî
+					// é€€å‡ºå‘½ä»¤
 					if((s_QuitCmdPrefix+m_receiver.m_ReceiverName).compareTo(name) == 0)
 					{
 						break;
 					}
 					
-					// ÓÃ»§»Øµ÷º¯Êý
+					// ç”¨æˆ·å›žè°ƒå‡½æ•°
 					FuncObj funcObj = m_receiver.m_cbMap.get(name);
 					
-					// ¹¹ÔìÊÂ¼þÊµÀý
+					// æž„é€ äº‹ä»¶å®žä¾‹
 					JSONObject jObject = null;
 					if(jsonObjStr.compareTo("null") != 0)
 					{
@@ -142,7 +142,7 @@ public class CEventSys {
 
 					m_receiver.m_SubSync.UnLock();
 					
-					// »Øµ½ÓÃ»§º¯Êý
+					// å›žåˆ°ç”¨æˆ·å‡½æ•°
 					try {
 						funcObj.m.invoke(funcObj.o, jObject);
 					} catch (Exception e) {

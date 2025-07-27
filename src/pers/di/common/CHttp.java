@@ -22,14 +22,14 @@ public class CHttp {
 			url = new URL(urlStr);
 	        HttpURLConnection conn = (HttpURLConnection)url.openConnection();    
 
-	        conn.setConnectTimeout(5*1000);  //ÉèÖÃÁ¬½Ó³¬Ê±¼ä 
-	        conn.setReadTimeout(15*1000); //ÉèÖÃ¶ÁÈ¡³¬Ê±Ê±¼ä
+	        conn.setConnectTimeout(5*1000);  //è®¾ç½®è¿æ¥è¶…æ—¶é—´ 
+	        conn.setReadTimeout(15*1000); //è®¾ç½®è¯»å–è¶…æ—¶æ—¶é—´
 	        
-	        //·ÀÖ¹ÆÁ±Î³ÌĞò×¥È¡¶ø·µ»Ø403´íÎó  
+	        //é˜²æ­¢å±è”½ç¨‹åºæŠ“å–è€Œè¿”å›403é”™è¯¯  
 	        conn.setRequestProperty("User-Agent", getRandomUserAgent());  
-	        //µÃµ½ÊäÈëÁ÷  
+	        //å¾—åˆ°è¾“å…¥æµ  
 	        InputStream inputStream = conn.getInputStream();   
-	        //»ñÈ¡×Ô¼ºÊı×é  
+	        //è·å–è‡ªå·±æ•°ç»„  
 	        byte[] getData = readInputStream(inputStream);    
 	        String data = new String(getData, "gbk");
 	        
@@ -43,7 +43,7 @@ public class CHttp {
 		}    
 		
         //System.out.println(data.toString()); 
-//        //ÎÄ¼ş±£´æÎ»ÖÃ  
+//        //æ–‡ä»¶ä¿å­˜ä½ç½®  
 //        File file = new File("D:/test.txt");      
 //        FileOutputStream fos = new FileOutputStream(file);       
 //        fos.write(getData);   

@@ -4,7 +4,7 @@ import java.math.BigDecimal;
 import java.util.Random;
 
 public class CUtilsMath {
-	// ±£ÁôNÎ»Ğ¡Êı£¬·ÇËÄÉáÎåÈë
+	// ä¿ç•™Nä½å°æ•°ï¼Œéå››èˆäº”å…¥
 	public static double saveNDecimalIgnore(double val, int n)
 	{
 		double newVal = 0.0;
@@ -13,7 +13,7 @@ public class CUtilsMath {
 		return newVal;
 	}
 	
-	// ±£ÁôNÎ»Ğ¡Êı£¬ËÄÉáÎåÈë
+	// ä¿ç•™Nä½å°æ•°ï¼Œå››èˆäº”å…¥
 	public static double saveNDecimal(double val, int n)
 	{
 		double newVal = 0.0;
@@ -45,13 +45,13 @@ public class CUtilsMath {
 //		return bd_f1.doubleValue();
 //	}
 	
-	// »ñÈ¡0.0-1.0Ö®¼äµÄfloatËæ»ú
+	// è·å–0.0-1.0ä¹‹é—´çš„floatéšæœº
 	public static float randomFloat()
 	{
 		return s_random.nextFloat();
 	}
 	
-	// d¿ªi´Î·½¸ú
+	// då¼€iæ¬¡æ–¹è·Ÿ
 	public static double sqrt(double d, double i) {  
        i=1/i;  
        return Math.pow(d, i);  

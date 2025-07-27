@@ -26,12 +26,12 @@ import pers.di.webstock.IWebStock.StockItem;
 public class DataWebStockAllList extends HttpHelper 
 {
 	/*
-	 * ´ÓÍøÂçÖĞ»ñµÃËùÓĞ¹ÉÆ±ÏîÄ¿
+	 * ä»ç½‘ç»œä¸­è·å¾—æ‰€æœ‰è‚¡ç¥¨é¡¹ç›®
 	 * 
-	 * ·µ»ØÖµ£º
-	 *     ·µ»Ø0Îª³É¹¦£¬ÆäËûÖµÎªÊ§°Ü
-	 * ²ÎÊı£º
-	 *     container ½ÓÊÕÈİÆ÷
+	 * è¿”å›å€¼ï¼š
+	 *     è¿”å›0ä¸ºæˆåŠŸï¼Œå…¶ä»–å€¼ä¸ºå¤±è´¥
+	 * å‚æ•°ï¼š
+	 *     container æ¥æ”¶å®¹å™¨
 	 */
 	public int getAllStockList(List<StockItem> container)
 	{
@@ -57,10 +57,10 @@ public class DataWebStockAllList extends HttpHelper
 			URL url = new URL(allStockListUrl);    
 	        HttpURLConnection conn = (HttpURLConnection)url.openConnection();    
 
-	        conn.setConnectTimeout(5*1000);  //ÉèÖÃÁ¬½Ó³¬Ê±¼ä 
-	        conn.setReadTimeout(15*1000); //ÉèÖÃ¶ÁÈ¡³¬Ê±Ê±¼ä
+	        conn.setConnectTimeout(5*1000);  //è®¾ç½®è¿æ¥è¶…æ—¶é—´ 
+	        conn.setReadTimeout(15*1000); //è®¾ç½®è¯»å–è¶…æ—¶æ—¶é—´
 	        
-	        //·ÀÖ¹ÆÁ±Î³ÌĞò×¥È¡¶ø·µ»Ø403´íÎó  
+	        //é˜²æ­¢å±è”½ç¨‹åºæŠ“å–è€Œè¿”å›403é”™è¯¯  
 	        conn.setRequestProperty("User-Agent", getRandomUserAgent());  
 	        
             Parser parser = new Parser(conn); 

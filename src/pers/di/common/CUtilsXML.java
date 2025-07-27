@@ -14,25 +14,25 @@ public class CUtilsXML {
 	
         SAXReader reader = new SAXReader();
         // System.out.println(reader);
-        // ×¢ÊÍ£º´´½¨Ò»¸ö´®µÄ×Ö·ûÊäÈëÁ÷
+        // æ³¨é‡Šï¼šåˆ›å»ºä¸€ä¸ªä¸²çš„å­—ç¬¦è¾“å…¥æµ
         StringReader in = new StringReader(str);
         Document doc = reader.read(in);
         // System.out.println(doc.getRootElement());
-        // ×¢ÊÍ£º´´½¨Êä³ö¸ñÊ½
+        // æ³¨é‡Šï¼šåˆ›å»ºè¾“å‡ºæ ¼å¼
         OutputFormat formater = OutputFormat.createPrettyPrint();
         //formater=OutputFormat.createCompactFormat();
-        // ×¢ÊÍ£ºÉèÖÃxmlµÄÊä³ö±àÂë
+        // æ³¨é‡Šï¼šè®¾ç½®xmlçš„è¾“å‡ºç¼–ç 
         formater.setEncoding("utf-8");
-        // ×¢ÊÍ£º´´½¨Êä³ö(Ä¿±ê)
+        // æ³¨é‡Šï¼šåˆ›å»ºè¾“å‡º(ç›®æ ‡)
         StringWriter out = new StringWriter();
-        // ×¢ÊÍ£º´´½¨Êä³öÁ÷
+        // æ³¨é‡Šï¼šåˆ›å»ºè¾“å‡ºæµ
         XMLWriter writer = new XMLWriter(out, formater);
-        // ×¢ÊÍ£ºÊä³ö¸ñÊ½»¯µÄ´®µ½Ä¿±êÖĞ£¬Ö´ĞĞºó¡£¸ñÊ½»¯ºóµÄ´®±£´æÔÚoutÖĞ¡£
+        // æ³¨é‡Šï¼šè¾“å‡ºæ ¼å¼åŒ–çš„ä¸²åˆ°ç›®æ ‡ä¸­ï¼Œæ‰§è¡Œåã€‚æ ¼å¼åŒ–åçš„ä¸²ä¿å­˜åœ¨outä¸­ã€‚
         writer.write(doc);
  
         writer.close();
         //System.out.println(out.toString());
-        // ×¢ÊÍ£º·µ»ØÎÒÃÇ¸ñÊ½»¯ºóµÄ½á¹û
+        // æ³¨é‡Šï¼šè¿”å›æˆ‘ä»¬æ ¼å¼åŒ–åçš„ç»“æœ
         return out.toString();
     }
 }

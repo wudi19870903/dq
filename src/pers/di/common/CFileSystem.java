@@ -86,20 +86,20 @@ public class CFileSystem {
 	    {
 			if (file.isFile()) 
 			{
-				//ÊÇÎÄ¼ş  
-			    if(!file.delete()) //É¾³ıÎÄ¼ş   
+				//æ˜¯æ–‡ä»¶  
+			    if(!file.delete()) //åˆ é™¤æ–‡ä»¶   
 			    {
 			    	return -1;
 			    }
 			} 
 			else if (file.isDirectory()) 
 			{
-				//ÊÇÒ»¸öÄ¿Â¼  
-			    File[] files = file.listFiles();//ÉùÃ÷Ä¿Â¼ÏÂËùÓĞµÄÎÄ¼ş files[];  
-			    for (int i = 0;i < files.length;i ++) {//±éÀúÄ¿Â¼ÏÂËùÓĞµÄÎÄ¼ş  
-			    	help_deleteFile(files[i]);//°ÑÃ¿¸öÎÄ¼şÓÃÕâ¸ö·½·¨½øĞĞµü´ú  
+				//æ˜¯ä¸€ä¸ªç›®å½•  
+			    File[] files = file.listFiles();//å£°æ˜ç›®å½•ä¸‹æ‰€æœ‰çš„æ–‡ä»¶ files[];  
+			    for (int i = 0;i < files.length;i ++) {//éå†ç›®å½•ä¸‹æ‰€æœ‰çš„æ–‡ä»¶  
+			    	help_deleteFile(files[i]);//æŠŠæ¯ä¸ªæ–‡ä»¶ç”¨è¿™ä¸ªæ–¹æ³•è¿›è¡Œè¿­ä»£  
 			    }  
-			    if(!file.delete()) //É¾³ıÎÄ¼ş¼Ğ  
+			    if(!file.delete()) //åˆ é™¤æ–‡ä»¶å¤¹  
 			    {
 			    	return -1;
 			    }

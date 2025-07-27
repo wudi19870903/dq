@@ -18,12 +18,12 @@ public class DataWebStockInfo extends HttpHelper
 	}
 	
 	/*
-	 * ´ÓÍøÂç»ñÈ¡Ä³Ö»¹ÉÆ±ĞÅÏ¢£¨»ù±¾ĞÅÏ¢£¬×ÜÊĞÖµ£¬Á÷Í¨ÊĞÖµ£¬ÊĞÓ¯ÂÊµÈ£©
+	 * ä»ç½‘ç»œè·å–æŸåªè‚¡ç¥¨ä¿¡æ¯ï¼ˆåŸºæœ¬ä¿¡æ¯ï¼Œæ€»å¸‚å€¼ï¼Œæµé€šå¸‚å€¼ï¼Œå¸‚ç›ˆç‡ç­‰ï¼‰
 	 * 
-	 * ·µ»ØÖµ£º
-	 *     ·µ»Ø0Îª³É¹¦£¬ÆäËûÖµÎªÊ§°Ü
-	 * ²ÎÊı£º
-	 *     container ½ÓÊÕÈİÆ÷
+	 * è¿”å›å€¼ï¼š
+	 *     è¿”å›0ä¸ºæˆåŠŸï¼Œå…¶ä»–å€¼ä¸ºå¤±è´¥
+	 * å‚æ•°ï¼š
+	 *     container æ¥æ”¶å®¹å™¨
 	 */
 	public int getStockInfo(String id, StockInfo container)
 	{
@@ -60,9 +60,9 @@ public class DataWebStockInfo extends HttpHelper
 		{
 			tmpId = "sz" + id;
 		}
-		else if(id.startsWith("99")) // ÉÏÖ¤Ö¸Êı
+		else if(id.startsWith("99")) // ä¸Šè¯æŒ‡æ•°
 		{
-			tmpId = "sh" + "000001"; // ÉÏÖ¤Ö¸ÊıÃ»ÓĞ¸ü¶à»ù±¾ĞÅÏ¢
+			tmpId = "sh" + "000001"; // ä¸Šè¯æŒ‡æ•°æ²¡æœ‰æ›´å¤šåŸºæœ¬ä¿¡æ¯
 			error = 0;
 			return error;
 		}
@@ -78,10 +78,10 @@ public class DataWebStockInfo extends HttpHelper
 			URL url = new URL(urlStr);    
 	        HttpURLConnection conn = (HttpURLConnection)url.openConnection();    
 
-	        conn.setConnectTimeout(5*1000);  //ÉèÖÃÁ¬½Ó³¬Ê±¼ä 
-	        conn.setReadTimeout(15*1000); //ÉèÖÃ¶ÁÈ¡³¬Ê±Ê±¼ä
+	        conn.setConnectTimeout(5*1000);  //è®¾ç½®è¿æ¥è¶…æ—¶é—´ 
+	        conn.setReadTimeout(15*1000); //è®¾ç½®è¯»å–è¶…æ—¶æ—¶é—´
 	        
-	        //·ÀÖ¹ÆÁ±Î³ÌĞò×¥È¡¶ø·µ»Ø403´íÎó  
+	        //é˜²æ­¢å±è”½ç¨‹åºæŠ“å–è€Œè¿”å›403é”™è¯¯  
 	        conn.setRequestProperty("User-Agent", getRandomUserAgent());  
 			InputStream inputStream = conn.getInputStream(); 
 			byte[] getData = readInputStream(inputStream); 
@@ -92,10 +92,10 @@ public class DataWebStockInfo extends HttpHelper
 //			{
 //				System.out.println(cells[i]);
 //			}
-			container.allMarketValue = Double.parseDouble(cells[45]); //×ÜÊĞÖµ
-			container.circulatedMarketValue = Double.parseDouble(cells[44]); // Á÷Í¨ÊĞÖµ
+			container.allMarketValue = Double.parseDouble(cells[45]); //æ€»å¸‚å€¼
+			container.circulatedMarketValue = Double.parseDouble(cells[44]); // æµé€šå¸‚å€¼
 			if(cells[39].length() != 0)
-				container.peRatio = Double.parseDouble(cells[39]); //ÊĞÓ¯ÂÊ
+				container.peRatio = Double.parseDouble(cells[39]); //å¸‚ç›ˆç‡
 			else
 				container.peRatio = 0.0f;
 			

@@ -4,7 +4,7 @@ import java.util.*;
 
 /*
  * Least Recently Used
- * ×î½ü×îÉÙÊ¹ÓÃ ¶ªÆú»º´æ
+ * æœ€è¿‘æœ€å°‘ä½¿ç”¨ ä¸¢å¼ƒç¼“å­˜
  */
 public class CLRUMapCache<K, V> {
 	
@@ -12,18 +12,18 @@ public class CLRUMapCache<K, V> {
 	{
 		m_currentSize = 0;  
 		m_cacheSize = cacheSize;  
-		m_nodes = new Hashtable<Object, Entry>(cacheSize);//»º´æÈİÆ÷  
+		m_nodes = new Hashtable<Object, Entry>(cacheSize);//ç¼“å­˜å®¹å™¨  
 	}
 	
     /** 
-     * ÅĞ¶ÏÊÇ·ñÓĞkey 
+     * åˆ¤æ–­æ˜¯å¦æœ‰key 
      */  
     public boolean containsKey(K key) {  
     	return m_nodes.containsKey(key);
     }  
 	
 	/** 
-     * »ñÈ¡»º´æÖĞ¶ÔÏó,²¢°ÑËü·ÅÔÚ×îÇ°Ãæ 
+     * è·å–ç¼“å­˜ä¸­å¯¹è±¡,å¹¶æŠŠå®ƒæ”¾åœ¨æœ€å‰é¢ 
      */  
     public V get(K key) {  
         Entry node = m_nodes.get(key);  
@@ -36,14 +36,14 @@ public class CLRUMapCache<K, V> {
     }  
       
     /** 
-     * Ìí¼Ó entryµ½hashtable, ²¢°Ñentry  
+     * æ·»åŠ  entryåˆ°hashtable, å¹¶æŠŠentry  
      */  
     public void put(K key, V value) {  
-        //ÏÈ²é¿´hashtableÊÇ·ñ´æÔÚ¸Ãentry, Èç¹û´æÔÚ£¬ÔòÖ»¸üĞÂÆävalue  
+        //å…ˆæŸ¥çœ‹hashtableæ˜¯å¦å­˜åœ¨è¯¥entry, å¦‚æœå­˜åœ¨ï¼Œåˆ™åªæ›´æ–°å…¶value  
         Entry node = m_nodes.get(key);  
           
         if (node == null) {  
-            //»º´æÈİÆ÷ÊÇ·ñÒÑ¾­³¬¹ı´óĞ¡.  
+            //ç¼“å­˜å®¹å™¨æ˜¯å¦å·²ç»è¶…è¿‡å¤§å°.  
             if (m_currentSize >= m_cacheSize) {  
             	m_nodes.remove(m_last.key);  
                 removeLast();  
@@ -54,17 +54,17 @@ public class CLRUMapCache<K, V> {
         }  
         node.key = key;
         node.value = value;  
-        //½«×îĞÂÊ¹ÓÃµÄ½Úµã·Åµ½Á´±íÍ·£¬±íÊ¾×îĞÂÊ¹ÓÃµÄ.  
+        //å°†æœ€æ–°ä½¿ç”¨çš„èŠ‚ç‚¹æ”¾åˆ°é“¾è¡¨å¤´ï¼Œè¡¨ç¤ºæœ€æ–°ä½¿ç”¨çš„.  
         moveToHead(node);  
         m_nodes.put(key, node);  
     }  
     
     /** 
-     * ½«entryÉ¾³ı, ×¢Òâ£ºÉ¾³ı²Ù×÷Ö»ÓĞÔÚcacheÂúÁË²Å»á±»Ö´ĞĞ 
+     * å°†entryåˆ é™¤, æ³¨æ„ï¼šåˆ é™¤æ“ä½œåªæœ‰åœ¨cacheæ»¡äº†æ‰ä¼šè¢«æ‰§è¡Œ 
      */  
     public void remove(K key) {  
         Entry node = m_nodes.get(key);  
-        //ÔÚÁ´±íÖĞÉ¾³ı  
+        //åœ¨é“¾è¡¨ä¸­åˆ é™¤  
         if (node != null) {  
             if (node.prev != null) {  
                 node.prev.next = node.next;  
@@ -77,12 +77,12 @@ public class CLRUMapCache<K, V> {
             if (m_first == node)  
             	m_first = node.next;  
         }  
-        //ÔÚhashtableÖĞÉ¾³ı  
+        //åœ¨hashtableä¸­åˆ é™¤  
         m_nodes.remove(key);  
     }  
     
     /**
-     * Çå¿Õ»º´æ 
+     * æ¸…ç©ºç¼“å­˜ 
      */  
     public void clear() {  
     	m_first = null;  
@@ -93,10 +93,10 @@ public class CLRUMapCache<K, V> {
     /***********************************************************************************/
   
     /** 
-     * É¾³ıÁ´±íÎ²²¿½Úµã£¬¼´Ê¹ÓÃ×îºó Ê¹ÓÃµÄentry 
+     * åˆ é™¤é“¾è¡¨å°¾éƒ¨èŠ‚ç‚¹ï¼Œå³ä½¿ç”¨æœ€å ä½¿ç”¨çš„entry 
      */  
     private void removeLast() {  
-        //Á´±íÎ²²»Îª¿Õ,Ôò½«Á´±íÎ²Ö¸Ïònull. É¾³ıÁ¬±íÎ²£¨É¾³ı×îÉÙÊ¹ÓÃµÄ»º´æ¶ÔÏó£©  
+        //é“¾è¡¨å°¾ä¸ä¸ºç©º,åˆ™å°†é“¾è¡¨å°¾æŒ‡å‘null. åˆ é™¤è¿è¡¨å°¾ï¼ˆåˆ é™¤æœ€å°‘ä½¿ç”¨çš„ç¼“å­˜å¯¹è±¡ï¼‰  
         if (m_last != null) {  
             if (m_last.prev != null)  
             	m_last.prev.next = null;  
@@ -107,7 +107,7 @@ public class CLRUMapCache<K, V> {
     }  
       
     /** 
-     * ÒÆ¶¯µ½Á´±íÍ·£¬±íÊ¾Õâ¸ö½ÚµãÊÇ×îĞÂÊ¹ÓÃ¹ıµÄ 
+     * ç§»åŠ¨åˆ°é“¾è¡¨å¤´ï¼Œè¡¨ç¤ºè¿™ä¸ªèŠ‚ç‚¹æ˜¯æœ€æ–°ä½¿ç”¨è¿‡çš„ 
      */  
     private void moveToHead(Entry node) {  
         if (node == m_first)  
@@ -129,15 +129,15 @@ public class CLRUMapCache<K, V> {
     }  
   
 	class Entry {  
-	    Entry prev;//Ç°Ò»½Úµã  
-	    Entry next;//ºóÒ»½Úµã  
-	    Object value;//Öµ  
-	    Object key;//¼ü  
+	    Entry prev;//å‰ä¸€èŠ‚ç‚¹  
+	    Entry next;//åä¸€èŠ‚ç‚¹  
+	    Object value;//å€¼  
+	    Object key;//é”®  
 	}  
 	
 	private int m_cacheSize;  
-    private Hashtable<Object, Entry> m_nodes;//»º´æÈİÆ÷  
+    private Hashtable<Object, Entry> m_nodes;//ç¼“å­˜å®¹å™¨  
     private int m_currentSize;  
-    private Entry m_first;//Á´±íÍ·  
-    private Entry m_last;//Á´±íÎ²
+    private Entry m_first;//é“¾è¡¨å¤´  
+    private Entry m_last;//é“¾è¡¨å°¾
 }

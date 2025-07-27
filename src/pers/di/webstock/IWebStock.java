@@ -7,24 +7,24 @@ public interface IWebStock {
 	public class StockItem
 	{
 		public String ID;    // e.g. 300163
-		public String name;  // e.g. ÏÈ·æĞÂ²Ä
+		public String name;  // e.g. å…ˆé”‹æ–°æ
 	}
 	public class StockInfo
 	{
-		public String name;                  // ÏÈ·æĞÂ²Ä
+		public String name;                  // å…ˆé”‹æ–°æ
 		public String date;
 		public String time;
 		public double curPrice;
-		public double allMarketValue;        // ×ÜÊĞÖµ, unit ÒÚ
-		public double circulatedMarketValue; // Á÷Í¨ÊĞÖµ£º unit ÒÚ
+		public double allMarketValue;        // æ€»å¸‚å€¼, unit äº¿
+		public double circulatedMarketValue; // æµé€šå¸‚å€¼ï¼š unit äº¿
 		public double peRatio;
 	}
 	public class DividendPayout
 	{
 		public String date; 
-		public double songGu; // ËÍ¹É
-		public double zhuanGu; // ×ªËÍ
-		public double paiXi; // ÅÉÏ¢
+		public double songGu; // é€è‚¡
+		public double zhuanGu; // è½¬é€
+		public double paiXi; // æ´¾æ¯
 	}
 	public class KLine
 	{
@@ -34,13 +34,13 @@ public interface IWebStock {
 		public double close;
 		public double low;
 		public double high;
-		public double volume; // µ¥Î»ÊÖ
+		public double volume; // å•ä½æ‰‹
 	}
 	public class TransactionRecord
 	{
 		public String time; // e.g. 13:25:20
 		public double price; 
-		public double volume; // µ¥Î»ÊÖ
+		public double volume; // å•ä½æ‰‹
 	}
 	public class RealTimeInfoLite
 	{

@@ -24,17 +24,17 @@ public class DataWebStockDayK {
 	}
 	
 	/*
-	 * ´ÓÍøÂç»ñÈ¡Ä³Ö»¹ÉÆ±µÄÈÕKÊı¾İ
+	 * ä»ç½‘ç»œè·å–æŸåªè‚¡ç¥¨çš„æ—¥Kæ•°æ®
 	 * 
-	 * ·µ»ØÖµ£º
-	 *     ·µ»Ø0Îª³É¹¦£¬ÆäËûÖµÎªÊ§°Ü
-	 * ²ÎÊı£º
-	 *     ´«Èë999999´ú±íÉÏÖ¤Ö¸Êı
-	 *     ÉÏº£¹ÉÆ±£º60****
-	 *     ÉîÛÚ¹ÉÆ±£º00****»ò30****
-	 *     container ½ÓÊÕÈİÆ÷
+	 * è¿”å›å€¼ï¼š
+	 *     è¿”å›0ä¸ºæˆåŠŸï¼Œå…¶ä»–å€¼ä¸ºå¤±è´¥
+	 * å‚æ•°ï¼š
+	 *     ä¼ å…¥999999ä»£è¡¨ä¸Šè¯æŒ‡æ•°
+	 *     ä¸Šæµ·è‚¡ç¥¨ï¼š60****
+	 *     æ·±åœ³è‚¡ç¥¨ï¼š00****æˆ–30****
+	 *     container æ¥æ”¶å®¹å™¨
 	 *     
-	 * ÆäËû£º
+	 * å…¶ä»–ï¼š
 	 *     doc: http://blog.csdn.net/xp5xp6/article/details/53121481
 	 *     v1.0: url: e.g "http://biz.finance.sina.com.cn/stock/flash_hq/kline_data.php?symbol=sz000002&begin_date=20160101&end_date=21000101"
 	 *     v2.0: url: e.g "http://quotes.money.163.com/service/chddata.html?code=0601857&start=20170705&end=20170809&fields=TCLOSE;HIGH;LOW;TOPEN;VOTURNOVER;"
@@ -53,7 +53,7 @@ public class DataWebStockDayK {
 		{
 			innerID = "1" + id;
 		}
-		else if(id.startsWith("999999")) // ÉÏÖ¤Ö¸Êı
+		else if(id.startsWith("999999")) // ä¸Šè¯æŒ‡æ•°
 		{
 			innerID = "0" + "000001";
 		}
@@ -174,7 +174,7 @@ public class DataWebStockDayK {
 	        InputSource is = new InputSource(sr);
 	        Document doc = builder.parse(is);
 	        Element rootElement = doc.getDocumentElement();
-	        // ¼ì²é·µ»ØÊı¾İÓĞĞ§ĞÔ
+	        // æ£€æŸ¥è¿”å›æ•°æ®æœ‰æ•ˆæ€§
 	        if(!rootElement.getTagName().contains("control")) 
 	        {
 	        	error = -30;
