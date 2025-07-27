@@ -17,7 +17,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
 
 import pers.di.common.CLog;
 import pers.di.common.CThread;
-import pers.di.webstock.IWebStock.DividendPayout;
+import pers.di.model.*;
 
 import org.htmlparser.Node;
 import org.htmlparser.Parser;

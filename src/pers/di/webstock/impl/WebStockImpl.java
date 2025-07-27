@@ -3,12 +3,7 @@ package pers.di.webstock.impl;
 import java.util.List;
 
 import pers.di.webstock.IWebStock;
-import pers.di.webstock.IWebStock.DividendPayout;
-import pers.di.webstock.IWebStock.KLine;
-import pers.di.webstock.IWebStock.RealTimeInfoLite;
-import pers.di.webstock.IWebStock.StockInfo;
-import pers.di.webstock.IWebStock.StockItem;
-import pers.di.webstock.IWebStock.TransactionRecord;
+import pers.di.model.*;
 import pers.di.webstock.impl.*;
 
 public class WebStockImpl implements IWebStock {

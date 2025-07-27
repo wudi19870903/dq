@@ -8,6 +8,7 @@ import pers.di.common.CTest;
 import pers.di.common.CUtilsDateTime;
 import pers.di.webstock.*;
 import pers.di.webstock.IWebStock.*;
+import pers.di.model.*;
 
 public class TestWebStock {
 	

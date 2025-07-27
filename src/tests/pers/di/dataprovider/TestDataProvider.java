@@ -3,6 +3,7 @@ package pers.di.dataprovider;
 import java.util.ArrayList;
 import java.util.List;
 
+import pers.di.common.CFileSystem;
 import pers.di.common.CLog;
 import pers.di.common.CSystem;
 import pers.di.common.CTest;
@@ -16,9 +17,9 @@ public class TestDataProvider {
     }
 
     @CTest.test
-	public void test_getAllStockIDList() {
+	public void test_getLocalAllStockIDList() {
         List<String> stockList = new ArrayList<>(); 
-        int ret = DataProvider.getInstance().getAllStockIDList(stockList);
+        int ret = DataProvider.getInstance().getLocalAllStockIDList(stockList);
 		CTest.EXPECT_TRUE(0 == ret);
         CTest.EXPECT_TRUE(stockList.size() > 0);
         System.out.println("stockList size:" + stockList.size());
@@ -26,6 +27,21 @@ public class TestDataProvider {
             System.out.println(stockList.get(i));
         }
     }
+    @CTest.test
+	public void test_updateOneLocalStocks() {
+        String stockID = "601398"; //工商银行
+
+        // clear
+        String dateDir = DataProvider.getInstance().dataRoot() + "\\" + stockID;
+        CFileSystem.removeDir(dateDir);
+        CTest.EXPECT_FALSE(CFileSystem.isDirExist(dateDir));
+
+        int ret = DataProvider.getInstance().updateOneLocalStocks(stockID);
+        CTest.EXPECT_TRUE(0 == ret);
+        CTest.EXPECT_TRUE(CFileSystem.isDirExist(dateDir));
+        System.out.println("update stockID:" + stockID);
+    }
+    
 
     public static void main(String[] args) {
 		CSystem.start();

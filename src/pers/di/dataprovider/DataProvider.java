@@ -2,12 +2,14 @@ package pers.di.dataprovider;
 
 import java.util.List;
 import pers.di.dataprovider.internal.*;
+import pers.di.model.KLine;
 
 public class DataProvider {
     public String dataRoot() { return null;}
     public int updateAllLocalStocks() { return -1;}
     public int updateOneLocalStocks(String stockID) { return -1;}
-    public int getAllStockIDList(List<String> list) { return -1;}
+    public int getLocalAllStockIDList(List<String> list) { return -1;}
+    public int getLocalStockIDKLineList(List<KLine> list) { return -1;}
 
     // singleton
     private static volatile DataProvider instance;

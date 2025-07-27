@@ -1,4 +1,4 @@
-package pers.di.localstock.common;
+package pers.di.model;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -6,7 +6,6 @@ import java.util.Date;
 import java.util.List;
 
 import pers.di.common.*;
-import pers.di.localstock.common.*;
 
 /**
  * 

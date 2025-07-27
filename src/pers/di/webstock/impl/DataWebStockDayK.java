@@ -17,7 +17,7 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 
 import pers.di.common.CHttp;
-import pers.di.webstock.IWebStock.KLine;
+import pers.di.model.*;
 
 public class DataWebStockDayK {
 	

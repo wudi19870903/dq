@@ -1,19 +1,31 @@
 package pers.di.dataprovider.internal;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
+import pers.di.common.CFileSystem;
+import pers.di.common.CUtilsDateTime;
 import pers.di.dataprovider.DataProvider;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.*;
 
+import pers.di.model.*;
+import pers.di.webstock.WebStock;
+
 public class DataProviderImpl extends DataProvider
 { 
-    public static final String DATA_ROOT = "./rw/data";
-    public static final String STOCKLIST_FILE_PATH = "stocklist.xlsx";
+    private static final String DATA_ROOT = "./rw/data";
+    private static final String STOCKLIST_FILENAME = "stocklist.xlsx";
+    private static final String STOCK_DAYK_FILENAME = "dayk.txt";
+    private static final String STOCK__DIVIDENTPAYOUT_FILENAME = "dividendPayout.txt";
 
+    @Override
     public String dataRoot() { 
         return DATA_ROOT;
     }
@@ -26,16 +38,55 @@ public class DataProviderImpl extends DataProvider
 
     @Override
     public int updateOneLocalStocks(String stockID) {
-        return -1;
+        int error = 0;
+        String curDate = CUtilsDateTime.GetCurDateStr();
+        String paramToDate = curDate.replace("-", "");
+
+        List<KLine> ctnKLineNew = new ArrayList<KLine>();
+        int errGetWebKLineNew = WebStock.instance().getKLine(stockID, ctnKLineNew);// 获取网络日K数据
+        
+        List<DividendPayout> ctnDividendPayoutNew = new ArrayList<DividendPayout>();
+        int errDividendPayoutNew = WebStock.instance().getDividendPayout(stockID, ctnDividendPayoutNew);//获取网络分红派息数据
+        
+        if(0 == errGetWebKLineNew 
+                && 0 == errDividendPayoutNew )
+        {
+            // 网络获取日K，分红派息 成功
+            try {
+                // 保存到本地
+                this.saveKLine(stockID, ctnKLineNew);
+                this.saveDividendPayout(stockID, ctnDividendPayoutNew);
+            } catch(Exception e) {
+                e.printStackTrace();
+                System.out.println(e.getMessage()); 
+                error = -21;
+                return error;
+            }
+            
+            List<KLine> ctnKLineLocalNew = new ArrayList<KLine>();
+            int errKLineLocalNew = this.getLocalStockIDKLineList(stockID, ctnKLineLocalNew);
+            if(errKLineLocalNew == 0) {
+                //最新数据下载成功
+                error = 0;
+                return error;
+            } else {
+                error = -23;
+                return error;
+            }
+        } else {
+            // 下载日K，分红派息 失败
+            error = -10;
+            return error;
+        }
     }
 
     @Override
-    public int getAllStockIDList(List<String> list) { 
+    public int getLocalAllStockIDList(List<String> list) { 
         if (list == null) {
             return -1;
         }
         
-        File file = new File(dataRoot() + "/" + STOCKLIST_FILE_PATH);
+        File file = new File(dataRoot() + "/" + STOCKLIST_FILENAME);
         if (!file.exists()) {
             return -2; // File not found
         }
@@ -110,6 +161,60 @@ public class DataProviderImpl extends DataProvider
         }
     }
 
+    public int getLocalStockIDKLineList(String id, List<KLine> container) {
+		int error = 0;
+		
+		String stockDayKFileName = dataRoot() + "/" + id + "/" + STOCK_DAYK_FILENAME;
+		File cfile=new File(stockDayKFileName);
+
+		if(!cfile.exists())
+		{
+			error = -10;
+			return error;
+		}
+		
+		String tempString = null;
+		try
+		{
+			BufferedReader reader = new BufferedReader(new FileReader(cfile));
+			int line = 1;
+            while ((tempString = reader.readLine()) != null) {
+            	
+//                System.out.println("line " + line + ": " + tempString);
+//                if(tempString.contains("2017-01-05"))
+//                {
+//                	System.out.println("line " + line + ": " + tempString);
+//                }
+                
+            	KLine cKLine = new KLine();
+            	String[] cols = tempString.split(",");
+            	if(cols.length != 6 || cols[cols.length-1].length() <= 0) {
+            		System.out.println("line " + line + ": " + tempString);
+            	}
+            	
+            	cKLine.date = cols[0];
+	        	cKLine.open = Double.parseDouble(cols[1]);
+	        	cKLine.close = Double.parseDouble(cols[2]);
+	        	cKLine.low = Double.parseDouble(cols[3]);
+	        	cKLine.high = Double.parseDouble(cols[4]);
+	        	cKLine.volume = Double.parseDouble(cols[5]);
+	        	container.add(cKLine);
+	        	
+                line++;
+            }
+            reader.close();
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+			System.out.println("ErrorInfo: BaseDataStorage.getKLine "+ "stockID:" + id + " ParseStr:" + tempString); 
+			System.out.println(e.getMessage()); 
+			error = -1;
+			return error;
+		}
+		return error;
+	}
+
     private String getCellValueAsString(Cell cell) {
         if (cell == null) {
             return "";
@@ -154,5 +259,65 @@ public class DataProviderImpl extends DataProvider
         return value;
     }
 
-    public DataProviderImpl() {}
+    private int saveKLine(String id, List<KLine> container)
+	{
+		String stocKLineDir = dataRoot() + "/" + id;
+		if(!CFileSystem.createDir(stocKLineDir)) return -10;
+		
+		String stockDayKFileName = dataRoot() + "/" + id + "/" + STOCK_DAYK_FILENAME;
+		File cfile=new File(stockDayKFileName);
+		try
+		{
+			FileOutputStream cOutputStream = new FileOutputStream(cfile);
+			for(int i = 0; i < container.size(); i++)  
+	        {  
+				KLine cKLine = container.get(i);  
+//		            System.out.println(cKLine.date + "," 
+//		            		+ cKLine.open + "," + cKLine.close);  
+	            cOutputStream.write((cKLine.date + ",").getBytes());
+	            cOutputStream.write((cKLine.open + ",").getBytes());
+	            cOutputStream.write((cKLine.close + ",").getBytes());
+	            cOutputStream.write((cKLine.low + ",").getBytes());
+	            cOutputStream.write((cKLine.high + ",").getBytes());
+	            cOutputStream.write((cKLine.volume + "\n").getBytes());
+	        } 
+			cOutputStream.close();
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+			System.out.println(e.getMessage()); 
+			return -1;
+		}
+		return 0;
+	}
+    private int saveDividendPayout(String id, List<DividendPayout> container)
+	{
+		String stocKLineDir = dataRoot() + "/" + id;
+		if(!CFileSystem.createDir(stocKLineDir)) return -10;
+		
+		String stockDividendPayoutFileName = dataRoot() + "/" + id + "/" + STOCK__DIVIDENTPAYOUT_FILENAME;
+		File cfile =new File(stockDividendPayoutFileName);
+		try
+		{
+			FileOutputStream cOutputStream = new FileOutputStream(cfile);
+			for(int i = 0; i < container.size(); i++)  
+	        {  
+				DividendPayout cDividendPayout = container.get(i);
+				// System.out.println(cDividendPayout.date); 
+				cOutputStream.write((cDividendPayout.date + ",").getBytes());
+				cOutputStream.write((cDividendPayout.songGu + ",").getBytes());
+				cOutputStream.write((cDividendPayout.zhuanGu + ",").getBytes());
+				cOutputStream.write((cDividendPayout.paiXi + "\n").getBytes());
+	        } 
+			cOutputStream.close();
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+			System.out.println(e.getMessage()); 
+			return -1;
+		}
+		return 0;
+	}
 }

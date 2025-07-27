@@ -9,13 +9,11 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
-import pers.google.protobuf.TextFormat.ParseException;
-
 import java.util.*;
 
 public class CUtilsDateTime {
 	/*
-	 *  ��ǰʱ���
+	 *  当前时间戳
 	 */
 	static public long GetCurrentTimeMillis()
 	{

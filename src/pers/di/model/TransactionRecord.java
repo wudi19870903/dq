@@ -1,4 +1,4 @@
-package pers.di.localstock.common;
+package pers.di.model;
 
 /*
  * 日内交易明细
