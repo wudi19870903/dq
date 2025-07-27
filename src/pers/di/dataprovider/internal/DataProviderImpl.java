@@ -6,10 +6,11 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 import pers.di.common.CFileSystem;
+import pers.di.common.CLog;
+import pers.di.common.CObjectContainer;
 import pers.di.common.CUtilsDateTime;
 import pers.di.dataprovider.DataProvider;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
@@ -24,6 +25,7 @@ public class DataProviderImpl extends DataProvider
     private static final String STOCKLIST_FILENAME = "stocklist.xlsx";
     private static final String STOCK_DAYK_FILENAME = "dayk.txt";
     private static final String STOCK__DIVIDENTPAYOUT_FILENAME = "dividendPayout.txt";
+    private Formatter s_fmt = new Formatter(System.out);
 
     @Override
     public String dataRoot() { 
@@ -33,6 +35,78 @@ public class DataProviderImpl extends DataProvider
     @Override
     public int updateAllLocalStocks()
     { 
+        long lTCBegin = CUtilsDateTime.GetCurrentTimeMillis();
+        // 更新指数k
+		String ShangZhiId = "999999";
+		String ShangZhiName = "上阵指数";
+		int errDownloadSZ = this.updateOneLocalStocks(ShangZhiId);
+		String newestDate = "";
+		if(0 == errDownloadSZ) {
+			List<KLine> ctnKLine = new ArrayList<KLine>();
+			int error = this.getLocalStockIDKLineList(ShangZhiId, ctnKLine);
+			if(0 == error && ctnKLine.size() > 0) {
+				newestDate = ctnKLine.get(ctnKLine.size()-1).date;
+			}
+			s_fmt.format("[%s] update success: %s (%s) item:%d date:%s\n", 
+					CUtilsDateTime.GetCurDateTimeStr(), ShangZhiId, ShangZhiName, ctnKLine.size(), newestDate);
+		} else {
+			s_fmt.format("[%s] downloadAllStockFullData ERROR: %s error(%d)\n", 
+					CUtilsDateTime.GetCurDateTimeStr(), ShangZhiId, errDownloadSZ);
+			return -10;
+		}
+
+        // 更新所有k
+		List<String> stockAllList = new ArrayList<String>();
+		int errAllStockList = this.getLocalAllStockIDList(stockAllList);
+		if (0 != errAllStockList) {
+			CLog.error("DATAAPI", "DataProvider.getLocalAllStockIDList failed\n");
+		}
+		if(0 == errAllStockList)
+		{
+			int iAllStockListSize = stockAllList.size();
+			for(int i = 0; i < iAllStockListSize; i++)  
+	        {  
+				String stockID = stockAllList.get(i);
+				CObjectContainer<Integer> ctnCount = new CObjectContainer<Integer>();
+				int errDownloaddStockFullData = this.updateOneLocalStocks(stockID);
+	           
+				double fCostTime = (CUtilsDateTime.GetCurrentTimeMillis() - lTCBegin)/1000.0f;
+				
+				if(0 == errDownloaddStockFullData)
+				{
+					List<KLine> ctnKLine = new ArrayList<KLine>();
+					int errKLine = this.getLocalStockIDKLineList(stockID, ctnKLine);
+		    		if(0 == errKLine && ctnKLine.size() > 0)
+		    		{
+		    			String stockNewestDate = ctnKLine.get(ctnKLine.size()-1).date;
+		    			s_fmt.format("[%s] update success %d/%d %.3fs: %s item:%d date:%s\n", 
+		    					CUtilsDateTime.GetCurDateTimeStr(), i, iAllStockListSize, fCostTime, 
+		    					stockID, ctnCount.get(), stockNewestDate);
+		    		}
+		            else
+		            {
+		            	s_fmt.format("[%s] update ERROR %d/%d %.3fs: %s error(%d)\n", 
+		            			CUtilsDateTime.GetCurDateTimeStr(), i, iAllStockListSize, fCostTime, 
+		            			stockID, errDownloaddStockFullData);
+		            }
+				}
+				else
+				{
+					s_fmt.format("[%s] update ERROR %d/%d %.3fs: %s error(%d)\n", 
+							CUtilsDateTime.GetCurDateTimeStr(), i, iAllStockListSize, fCostTime, 
+							stockID, errDownloaddStockFullData);
+				}   
+				
+	        } 
+			double fCostTimeAll = (CUtilsDateTime.GetCurrentTimeMillis() - lTCBegin)/1000.0f;
+			s_fmt.format("[%s] update success all %.3fs, count: %d\n", 
+					CUtilsDateTime.GetCurDateTimeStr(), fCostTimeAll, stockAllList.size()); 
+		} else {
+			s_fmt.format("[%s] downloadAllStockFullData ERROR, WebStockLayer.getAllStockList failed!\n", 
+					CUtilsDateTime.GetCurDateTimeStr());
+			return -1;
+		}
+
         return 0;
     }
 
