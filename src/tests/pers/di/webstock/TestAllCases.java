@@ -14,12 +14,14 @@ import pers.di.common.TestCWatiObj;
 import pers.di.webstock.*;
 import pers.di.webstock.IWebStock.*;
 
-public class TestAll {
+public class TestAllCases {
+	public static void addAllTestCases() {
+        CTest.ADD_TEST(TestWebStock.class);
+	}
+
     public static void main(String[] args) {
        	CSystem.start();
-		
-		CTest.ADD_TEST(TestWebStock.class);
-	
+		addAllTestCases();
 		CTest.RUN_ALL_TESTS("");
 		CSystem.stop();
     }

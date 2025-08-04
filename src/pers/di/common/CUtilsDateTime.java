@@ -8,8 +8,9 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
-
 import java.util.*;
+
+import com.google.protobuf.TextFormat.ParseException;
 
 public class CUtilsDateTime {
 	/*
@@ -194,7 +195,7 @@ public class CUtilsDateTime {
 	}
 	
 	/*
-	 *  ��ǰ���ڶ���
+	 *  当前日期对象
 	 *  class Date
 	 */
 	static public Date GetCurDate()
@@ -204,7 +205,7 @@ public class CUtilsDateTime {
 	}
 	
 	/*
-	 *  ��ǰ����ʱ���ַ���
+	 *  当前日期时间字符串
 	 *  XXXX-XX-XX XX:XX:XX
 	 */
 	static public String GetCurDateTimeStr()
@@ -214,7 +215,7 @@ public class CUtilsDateTime {
 	}
 	
 	/*
-	 *  ��ǰ����
+	 *  当前日期
 	 *  XXXX-XX-XX
 	 */
 	static public String GetCurDateStr()
@@ -223,7 +224,7 @@ public class CUtilsDateTime {
 	}
 	
 	/*
-	 *  ��ǰʱ��
+	 *  当前时间
 	 *  XX:XX:XX
 	 */
 	static public String GetCurTimeStr()
@@ -232,8 +233,8 @@ public class CUtilsDateTime {
 	}
 	
 //	/*
-//	 *  ת�����ڶ���Date���ַ���
-//	 *  ����  "yyyy-MM-dd"
+//	 *  转换日期对象Date到字符串
+//	 *  返回  "yyyy-MM-dd"
 //	 */
 //	static public String GetDateStr(Date cDate)
 //	{
@@ -242,8 +243,8 @@ public class CUtilsDateTime {
 //	}
 	
 //	/*
-//	 *  ת�����ڶ���Date���ַ���
-//	 *  ����  "HH:mm:ss"
+//	 *  转换日期对象Date到字符串
+//	 *  返回  "HH:mm:ss"
 //	 */
 //	static public String GetTimeStr(Date cDate)
 //	{
@@ -252,8 +253,8 @@ public class CUtilsDateTime {
 //	}
 	
 //	/*
-//	 *  ת�����ڶ���Date���ַ���
-//	 *  ����  "HH:mm"
+//	 *  转换日期对象Date到字符串
+//	 *  返回  "HH:mm"
 //	 */
 //	static public String GetTimeStrHM(Date cDate)
 //	{
@@ -262,8 +263,8 @@ public class CUtilsDateTime {
 //	}
 	
 //	/*
-//	 *  ת�����ڶ���Date���ַ���
-//	 *  ����  "yyyy-MM-dd HH:mm:ss"
+//	 *  转换日期对象Date到字符串
+//	 *  返回  "yyyy-MM-dd HH:mm:ss"
 //	 */
 //	static public String GetDateTimeStr(Date cDate)
 //	{
@@ -272,9 +273,9 @@ public class CUtilsDateTime {
 //	}
 	
 //	/*
-//	 * ת�������ַ��������� Date
-//	 * ���������ַ�������Ϊ "yyyy-MM-dd"
-//	 * ���������ַ�������Ϊ "yyyy-MM-dd HH:mm:ss"
+//	 * 转换日期字符串到对象 Date
+//	 * 输入日期字符串可以为 "yyyy-MM-dd"
+//	 * 输入日期字符串可以为 "yyyy-MM-dd HH:mm:ss"
 //	 */
 //	static public Date GetDate(String dateStr)
 //	{
@@ -300,9 +301,9 @@ public class CUtilsDateTime {
 //	}
 	
 	/*
-     * ���ָ������ƫ�ƺ�������ַ���
-     * ���紫�� "2016-01-06", 4 �򷵻�  "2016-01-10"
-     * ת������ ����ԭֵ
+     * 获得指定日期偏移后的日期字符串
+     * 例如传入 "2016-01-06", 4 则返回  "2016-01-10"
+     * 转换错误 返回原值
      */  
     public static String getDateStrForSpecifiedDateOffsetD(String specifiedDate, int offset_d) {
 //        Calendar c = Calendar.getInstance();  
@@ -470,8 +471,8 @@ public class CUtilsDateTime {
     } 
     
 	/*
-     * ���ָ��ʱ��ƫ����������ʱ���ַ���
-     * ���紫�� "12:33:05", 65 �򷵻�  "12:34:10"
+     * 获得指定时间偏移若干秒后的时间字符串
+     * 例如传入 "12:33:05", 65 则返回  "12:34:10"
      */  
     public static String getTimeStrForSpecifiedTimeOffsetS(String specifiedTime, int offset_s) {
 //        Calendar c = Calendar.getInstance();  
@@ -494,9 +495,9 @@ public class CUtilsDateTime {
     } 
     
     /*
-     * ��ȡʱ������
-     * 01:00:01 ����Ϊ 3601
-     * ת������ ����0��
+     * 获取时间秒数
+     * 01:00:01 秒数为 3601
+     * 转换错误 返回0；
      */
     public static int GetSecondFromTimeStr(String time)
     {
@@ -525,9 +526,9 @@ public class CUtilsDateTime {
     }
     
     /*
-     * ��ȡ����ʱ��
-     *  3601 ��ʱ��Ϊ 01:00:01
-     *  ���ֵΪ 23:59:59 ���ڴ�ֵѭ������
+     * 获取秒数时间
+     *  3601 的时间为 01:00:01
+     *  最大值为 23:59:59 大于此值循环计数
      */
     public static String GetTimeStrFromSecond(int second)
     {
@@ -561,10 +562,10 @@ public class CUtilsDateTime {
     }
     
     /*
-     * �ȴ���ĳ����ʱ�䷵��
+     * 等待到某日期时间返回
      * 
-     * �ȴ���ʱ��󷵻�true
-     * ����ʱ�Ѿ���ʱ����false
+     * 等待到时间后返回true
+     * 调用时已经超时返回false
      */
     public static WAITRESULT waitFor(String date, String time)
     {
@@ -572,11 +573,11 @@ public class CUtilsDateTime {
     }
     
     /*
-     * �ȴ���ĳ����ʱ�䷵�� ��Notify����
+     * 等待到某日期时间返回 或被Notify返回
      * 
-     * �ȴ���ʱ��󷵻�true
-     * �ȴ��ڼ����notify����true
-     * ����ʱ�Ѿ���ʱ����false
+     * 等待到时间后返回true
+     * 等待期间对象被notify返回true
+     * 调用时已经超时返回false
      */
     public static WAITRESULT waitFor(String date, String time, CWaitObject waitObj)
     {
@@ -606,8 +607,8 @@ public class CUtilsDateTime {
     }
     
     /*
-     * ʱ���룩
-     * ת������ ����0
+     * 时间差（秒）
+     * 转换错误 返回0
      */
     public static long subTime(String time1, String time2)
     {  
@@ -711,7 +712,7 @@ public class CUtilsDateTime {
 				long curTC = System.currentTimeMillis();
 				if(curTC - c_lLastSystemSyncTC >= 1000*30)
 				{
-					// ÿ30s��syncʱ��һ��
+					// 每30s，sync时间一次
 					c_syncObj.Lock();
 					c_curDate = getSyncRealDate();
 					c_curDateTimeStr = c_sdf.format(c_curDate);
@@ -721,7 +722,7 @@ public class CUtilsDateTime {
 				}
 				if(curTC - c_lLastLocalProgSyncTC >= 1000)
 				{
-					// ÿ�룬���ظ���ʱ��
+					// 每秒，本地更新时间
 					Calendar c = Calendar.getInstance();  
 					c_syncObj.Lock();
 			        c.setTime(c_curDate);  
@@ -757,10 +758,10 @@ public class CUtilsDateTime {
 	        	
 	        	for(int i=0; i<5 ; i++)
 	        	{
-		            URL url = new URL("http://www.baidu.com");// ȡ����Դ����
-		            URLConnection uc = url.openConnection();// �������Ӷ���
-		            uc.connect();// ��������
-		            long ld = uc.getDate();// ��ȡ��վ����ʱ��
+		            URL url = new URL("http://www.baidu.com");// 取得资源对象
+		            URLConnection uc = url.openConnection();// 生成连接对象
+		            uc.connect();// 发出连接
+		            long ld = uc.getDate();// 读取网站日期时间
 		            if(ld > 1505239488000L)
 		            {
 		            	date = new Date(ld);

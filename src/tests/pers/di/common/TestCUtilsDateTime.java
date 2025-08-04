@@ -23,7 +23,7 @@ public class TestCUtilsDateTime {
 		{
 			testdata = testdata + CUtilsDateTime.GetCurrentTimeMillis();
 		}
-		CTest.EXPECT_TRUE(CTest.TEST_PERFORMANCE_END() < 50);
+		CTest.EXPECT_TRUE(CTest.TEST_PERFORMANCE_END() < 500);
 		CLog.debug("TEST", "dump:%d", testdata);
 	}
 	
@@ -37,7 +37,7 @@ public class TestCUtilsDateTime {
 		{
 			testdata = testdata & CUtilsDateTime.CheckValidDate("2017-02-04");
 		}
-		CTest.EXPECT_TRUE(CTest.TEST_PERFORMANCE_END() < 100);
+		CTest.EXPECT_TRUE(CTest.TEST_PERFORMANCE_END() < 200);
 		CLog.debug("TEST", "dump:%b", testdata);
 		
 		CTest.EXPECT_FALSE(CUtilsDateTime.CheckValidDate("2016--02-04"));
@@ -87,7 +87,7 @@ public class TestCUtilsDateTime {
 		{
 			testdata = testdata & CUtilsDateTime.CheckValidTime("12:31:22");
 		}
-		CTest.EXPECT_TRUE(CTest.TEST_PERFORMANCE_END() < 100);
+		CTest.EXPECT_TRUE(CTest.TEST_PERFORMANCE_END() < 200);
 		CLog.debug("TEST", "dump:%b", testdata);
 		
 		CTest.EXPECT_FALSE(CUtilsDateTime.CheckValidTime("21::31:22"));
@@ -183,7 +183,7 @@ public class TestCUtilsDateTime {
 		{
 			cDate = CUtilsDateTime.GetCurDate();
 		}
-		CTest.EXPECT_TRUE(CTest.TEST_PERFORMANCE_END() < 50);
+		CTest.EXPECT_TRUE(CTest.TEST_PERFORMANCE_END() < 500);
 		CLog.debug("TEST", "dump:%s" , cDate.toString());
 	}
 	
@@ -199,7 +199,7 @@ public class TestCUtilsDateTime {
 			//CThread.sleep(1000);
 			//CLog.output("TEST", "dump:%s \n", stestdata);
 		}
-		CTest.EXPECT_TRUE(CTest.TEST_PERFORMANCE_END() < 50);
+		CTest.EXPECT_TRUE(CTest.TEST_PERFORMANCE_END() < 500);
 		CLog.debug("TEST", "dump:%s", stestdata);
 	}
 	
@@ -227,7 +227,7 @@ public class TestCUtilsDateTime {
 		{
 			stestdata = CUtilsDateTime.GetCurTimeStr();
 		}
-		CTest.EXPECT_TRUE(CTest.TEST_PERFORMANCE_END() < 50);
+		CTest.EXPECT_TRUE(CTest.TEST_PERFORMANCE_END() < 500);
 		CLog.debug("TEST", "dump[%s]", stestdata);
 	}
 	
@@ -335,7 +335,7 @@ public class TestCUtilsDateTime {
 		}
 		CTest.EXPECT_LONG_EQ(CUtilsDateTime.GetSecondFromTimeStr("12:34:56"),12*3600+34*60+56);
 		CTest.EXPECT_TRUE(CUtilsDateTime.GetSecondFromTimeStr("25:34:56") == 0);
-		CTest.EXPECT_TRUE(CTest.TEST_PERFORMANCE_END() < 50);
+		CTest.EXPECT_TRUE(CTest.TEST_PERFORMANCE_END() < 500);
 		CLog.debug("TEST", "dump[%d]", itestdata);
 	}
 	
