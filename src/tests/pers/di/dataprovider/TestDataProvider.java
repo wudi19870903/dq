@@ -29,17 +29,33 @@ public class TestDataProvider {
     }
     @CTest.test
 	public void test_updateOneLocalStocks() {
-        String stockID = "601398"; //工商银行
+        {
+            String stockID = "601398"; //工商银行
 
-        // clear
-        String dateDir = DataProvider.getInstance().dataRoot() + "\\" + stockID;
-        CFileSystem.removeDir(dateDir);
-        CTest.EXPECT_FALSE(CFileSystem.isDirExist(dateDir));
+            // clear
+            String dateDir = DataProvider.getInstance().dataRoot() + "\\" + stockID;
+            CFileSystem.removeDir(dateDir);
+            CTest.EXPECT_FALSE(CFileSystem.isDirExist(dateDir));
 
-        int ret = DataProvider.getInstance().updateOneLocalStocks(stockID);
-        CTest.EXPECT_TRUE(0 == ret);
-        CTest.EXPECT_TRUE(CFileSystem.isDirExist(dateDir));
-        System.out.println("update stockID:" + stockID);
+            int ret = DataProvider.getInstance().updateOneLocalStocks(stockID);
+            CTest.EXPECT_TRUE(0 == ret);
+            CTest.EXPECT_TRUE(CFileSystem.isDirExist(dateDir));
+            System.out.println("update stockID:" + stockID);
+        }
+        {
+            String stockID = "920819"; //颖泰生物
+
+            // clear
+            String dateDir = DataProvider.getInstance().dataRoot() + "\\" + stockID;
+            CFileSystem.removeDir(dateDir);
+            CTest.EXPECT_FALSE(CFileSystem.isDirExist(dateDir));
+
+            int ret = DataProvider.getInstance().updateOneLocalStocks(stockID);
+            CTest.EXPECT_TRUE(0 == ret);
+            CTest.EXPECT_TRUE(CFileSystem.isDirExist(dateDir));
+            System.out.println("update stockID:" + stockID);
+        }
+
     }
     
 

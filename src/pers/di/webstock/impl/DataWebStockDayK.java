@@ -56,6 +56,10 @@ public class DataWebStockDayK {
 		{
 			innerID = "sz" + id;
 		}
+		else if((id.startsWith("83") ||  id.startsWith("87") ||  id.startsWith("92")) && 6 == id.length())
+		{
+			innerID = "bj" + id;
+		}
 		else if(id.startsWith("999999")) // 上证指数
 		{
 			innerID = "sh" + "000001";
