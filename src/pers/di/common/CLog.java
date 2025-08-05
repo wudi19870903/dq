@@ -322,11 +322,21 @@ public class CLog {
 		String logstr = String.format(format, args);
 		output(LOGLEVEL.ERROR, target, logstr);
 	}
+	public static void error(String format, Object... args)
+	{
+		String logstr = String.format(format, args);
+		output(LOGLEVEL.ERROR, "TEST", logstr);
+	}
 	
 	public static void warning(String target, String format, Object... args)
 	{
 		String logstr = String.format(format, args);
 		output(LOGLEVEL.WARNING, target, logstr);
+	}
+	public static void warning(String format, Object... args)
+	{
+		String logstr = String.format(format, args);
+		output(LOGLEVEL.WARNING, "TEST", logstr);
 	}
 	
 	public static void info(String target, String format, Object... args)
@@ -334,11 +344,21 @@ public class CLog {
 		String logstr = String.format(format, args);
 		output(LOGLEVEL.INFO, target, logstr);
 	}
+	public static void info(String format, Object... args)
+	{
+		String logstr = String.format(format, args);
+		output(LOGLEVEL.INFO, "TEST", logstr);
+	}
 	
 	public static void debug(String target, String format, Object... args)
 	{
 		String logstr = String.format(format, args);
 		output(LOGLEVEL.DEBUG, target, logstr);
+	}
+	public static void debug(String format, Object... args)
+	{
+		String logstr = String.format(format, args);
+		output(LOGLEVEL.DEBUG, "TEST", logstr);
 	}
 	
 	private static void output(LOGLEVEL level, String target, String logstr)

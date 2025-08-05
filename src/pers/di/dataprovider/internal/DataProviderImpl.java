@@ -188,4 +188,111 @@ public class DataProviderImpl extends DataProvider
     public int getLocalAllStockIDList(List<String> list) { 
         return mDataStorage.getLocalAllStockIDList(list);
     }
+
+	@Override
+	public int getLocalDayKLines(String stockID, List<KLine> container) {
+		return mDataStorage.getLocalStockIDKLineList(stockID, container);
+	}
+
+	@Override
+	public int getDayKLinesForwardAdjusted(String stockID, List<KLine> container) {
+		int error = 0;
+		
+		int errKline = mDataStorage.getLocalStockIDKLineList(stockID, container);
+		List<DividendPayout> ctnDividendPayout = new ArrayList<DividendPayout>();
+		int errDividendPayout = mDataStorage.getDividendPayout(stockID, ctnDividendPayout);
+		if(0 != errKline || 0 != errDividendPayout) 
+		{
+			error = -10;
+			container.clear();
+			return error;
+		}
+		
+		for(int i = 0; i < ctnDividendPayout.size() ; i++)  
+		{
+			DividendPayout cDividendPayout = ctnDividendPayout.get(i);  
+//			System.out.println(cDividendPayout.date);
+//			System.out.println(cDividendPayout.songGu);
+//			System.out.println(cDividendPayout.zhuanGu);
+//			System.out.println(cDividendPayout.paiXi);
+			
+			double unitMoreGuRatio = (cDividendPayout.songGu + cDividendPayout.zhuanGu + 10)/10;
+			double unitPaiXi = cDividendPayout.paiXi/10;
+			
+			for(int j = container.size() -1; j >= 0 ; j--)
+			{
+				KLine cKLine = container.get(j); 
+				
+				if(cKLine.date.compareTo(cDividendPayout.date) < 0) // 閼诧紕銈ㄩ弮銉︽埂鐏忓繋绨崚鍡欏濞茬偓浼呴弮銉︽埂閺冭绱濇潻娑滎攽闁插秵鏌婄拋锛勭暬
+				{
+					cKLine.open = (cKLine.open - unitPaiXi)/unitMoreGuRatio;
+					//cKLine.open = (int)(cKLine.open*1000)/(double)1000.0;
+					
+//					System.out.println("date " + cKLine.date + " " + cKLine.open );
+					
+					cKLine.close = (cKLine.close - unitPaiXi)/unitMoreGuRatio;
+					//cKLine.close = (int)(cKLine.close*1000)/(double)1000.0;
+					
+					cKLine.low = (cKLine.low - unitPaiXi)/unitMoreGuRatio;
+					//cKLine.low = (int)(cKLine.low*1000)/(double)1000.0;
+					
+					cKLine.high = (cKLine.high - unitPaiXi)/unitMoreGuRatio;
+					//cKLine.high = (int)(cKLine.high*1000)/(double)1000.0;	
+				}
+			}
+		}
+		return error;
+	}
+
+	@Override
+	public int getDayKLinesBackwardAdjusted(String stockID, List<KLine> container) {
+		int error = 0;
+		
+		int errKline = mDataStorage.getLocalStockIDKLineList(stockID, container);
+		List<DividendPayout> ctnDividendPayout = new ArrayList<DividendPayout>();
+		int errDividendPayout = mDataStorage.getDividendPayout(stockID, ctnDividendPayout);
+		if(0 != errKline || 0 != errDividendPayout) 
+		{
+			error = -10;
+			container.clear();
+			return error;
+		}
+		
+		
+		for(int i = ctnDividendPayout.size() -1; i >=0  ; i--)  
+		{
+			DividendPayout cDividendPayout = ctnDividendPayout.get(i);  
+//			System.out.println(cDividendPayout.date);
+//			System.out.println(cDividendPayout.songGu);
+//			System.out.println(cDividendPayout.zhuanGu);
+//			System.out.println(cDividendPayout.paiXi);
+			
+			double unitMoreGuRatio = (cDividendPayout.songGu + cDividendPayout.zhuanGu + 10)/10;
+			double unitPaiXi = cDividendPayout.paiXi/10;
+			
+			for(int j = 0; j< container.size(); j++)
+			{
+				KLine cKLine = container.get(j); 
+				
+				if(cKLine.date.compareTo(cDividendPayout.date) >= 0) // 閼诧紕銈ㄩ弮銉︽埂 婢堆傜艾缁涘绨崚鍡欏濞茬偓浼呴弮銉︽埂閺冭绱濇潻娑滎攽闁插秵鏌婄拋锛勭暬
+				{
+					cKLine.open = cKLine.open * unitMoreGuRatio + unitPaiXi;
+					//cKLine.open = (int)(cKLine.open*1000)/(double)1000.0;
+					
+//					System.out.println("date " + cKLine.date + " " + cKLine.open );
+					
+					cKLine.close = cKLine.close * unitMoreGuRatio + unitPaiXi;
+					//cKLine.close = (int)(cKLine.close*1000)/(double)1000.0;
+					
+					cKLine.low = cKLine.low * unitMoreGuRatio + unitPaiXi;
+					//cKLine.low = (int)(cKLine.low*1000)/(double)1000.0;
+					
+					cKLine.high = cKLine.high * unitMoreGuRatio + unitPaiXi;
+					//cKLine.high = (int)(cKLine.high*1000)/(double)1000.0;	
+				}
+			}
+		}
+		
+		return error;
+	}
 }

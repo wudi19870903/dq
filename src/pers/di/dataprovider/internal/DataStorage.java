@@ -187,6 +187,48 @@ public class DataStorage {
 		return error;
 	}
 
+	public int getDividendPayout(String id, List<DividendPayout> container)
+	{
+		int error = 0;
+		
+		String stockDividendPayoutFileName = dataRoot() + "/" + id + "/" + LocalConfig.STOCK_DIVIDENTPAYOUT_FILENAME;
+		File cfile=new File(stockDividendPayoutFileName);
+		if(!cfile.exists()) 
+		{
+			error = -10;
+			return error;
+		}
+		
+		try
+		{
+			BufferedReader reader = new BufferedReader(new FileReader(cfile));
+			int line = 1;
+			String tempString = null;
+            while ((tempString = reader.readLine()) != null) {
+                //System.out.println("line " + line + ": " + tempString);
+            	String[] cols = tempString.split(",");
+            	
+            	DividendPayout cDividendPayout = new DividendPayout();
+            	cDividendPayout.date = cols[0];
+                cDividendPayout.songGu = Double.parseDouble(cols[1]);
+                cDividendPayout.zhuanGu = Double.parseDouble(cols[2]);
+                cDividendPayout.paiXi = Double.parseDouble(cols[3]);
+                container.add(cDividendPayout);
+                
+                line++;
+            }
+            reader.close();
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+			System.out.println(e.getMessage()); 
+			error = -1;
+			return error;
+		}
+		return error;
+	}
+
     public int saveDividendPayout(String id, List<DividendPayout> container)
 	{
 		String stocKLineDir = dataRoot() + "/" + id;

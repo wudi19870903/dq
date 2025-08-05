@@ -21,6 +21,12 @@ public class CUtilsMath {
 		newVal= Math.round(val*iScale)/(double)iScale;
 		return newVal;
 	}
+
+	// 保留N位小数，四舍五入
+	public static double save2Decimal(double val)
+	{
+		return Math.round(val*100.0)/(double)100.0;
+	}
 	
 //	// multiply float*float->double
 //	public static double multiply(float f1, float f2)
