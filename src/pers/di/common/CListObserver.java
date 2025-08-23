@@ -23,6 +23,15 @@ public class CListObserver<T> {
 		// TODO Auto-generated method stub
 		return m_iSize;
 	}
+
+	public T begin() {
+		// TODO Auto-generated method stub
+		return m_listContainer.get(0);
+	}
+	public T end() {
+		// TODO Auto-generated method stub
+		return m_listContainer.get(size() - 1);
+	}
 	
 	// 构建访问器
 	public boolean build(List<T> origin, int iBase, int iSize)

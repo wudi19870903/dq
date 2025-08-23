@@ -10,11 +10,7 @@ public class WebStockImpl implements IWebStock {
 	
 	public WebStockImpl()
 	{
-		m_DataWebStockAllList = new DataWebStockAllList();
-		m_DataWebStockInfo = new DataWebStockInfo();
 		m_DataWebStockDayK = new DataWebStockDayK();
-		m_TransactionRecordHistory = new TransactionRecordHistory();
-		m_DataWebStockRealTimeInfo = new DataWebStockRealTimeInfo();
 		m_DataWebStockDividendPayout = new DataWebStockDividendPayout();
 	}
 
@@ -48,10 +44,6 @@ public class WebStockImpl implements IWebStock {
 	// 	return m_DataWebStockRealTimeInfo.getRealTimeInfo(stockIDs, container);
 	// }
 
-	private DataWebStockAllList m_DataWebStockAllList;
-	private DataWebStockInfo m_DataWebStockInfo;
 	private DataWebStockDayK m_DataWebStockDayK;
-	private TransactionRecordHistory m_TransactionRecordHistory;
-	private DataWebStockRealTimeInfo m_DataWebStockRealTimeInfo;
 	private DataWebStockDividendPayout m_DataWebStockDividendPayout;
 }

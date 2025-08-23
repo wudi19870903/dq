@@ -28,6 +28,10 @@ public class DataProviderImpl extends DataProvider
     public String dataRoot() { 
         return mDataStorage.dataRoot();
     }
+	@Override
+	public void setDataRoot(String dataRoot) {
+		mDataStorage.setDataRoot(dataRoot);
+	}
 
     @Override
     public int updateAllLocalStocks()
@@ -186,8 +190,29 @@ public class DataProviderImpl extends DataProvider
 
     @Override
     public int getLocalAllStockIDList(List<String> list) { 
-        return mDataStorage.getLocalAllStockIDList(list);
+		if (list == null) {
+            return -1;
+        }
+
+		Map<String, String> map = new HashMap<String, String>();
+		int ret = mDataStorage.getLocalAllStockIDNameMap(map);
+		if (0 != ret) {
+			return ret;
+		}
+
+		list.addAll(map.keySet());
+		return 0;
     }
+
+	@Override
+	public int getLocalAllStockIDNameMap(Map<String, String> map) {
+		return mDataStorage.getLocalAllStockIDNameMap(map);
+	}
+
+	@Override
+	public int getLocalAvailableDayKlinesStockIDList(List<String> list) {
+		return mDataStorage.getLocalAvailableDayKlinesStockIDList(list);
+	}
 
 	@Override
 	public int getLocalDayKLines(String stockID, List<KLine> container) {

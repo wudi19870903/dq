@@ -7,7 +7,9 @@ import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.*;
@@ -18,11 +20,16 @@ import pers.di.model.DividendPayout;
 import pers.di.model.KLine;
 
 public class DataStorage {
+	public void setDataRoot(String path) { 
+        LocalConfig.DATA_ROOT = path;
+    }
     public String dataRoot() { 
         return LocalConfig.DATA_ROOT;
     }
-    public int getLocalAllStockIDList(List<String> list) { 
-        if (list == null) {
+
+	// 获取所有股票ID和对应的名字
+    public int getLocalAllStockIDNameMap(Map<String, String> map) { 
+        if (map == null) {
             return -1;
         }
         
@@ -79,7 +86,7 @@ public class DataStorage {
                             name != null && !name.trim().isEmpty()) {
                             // Combine code and name with a separator
                             //list.add(code.trim() + ":" + name.trim());
-                            list.add(code.trim());
+                            map.put(code, name);
                             rowCount++;
                         }
                     }
@@ -133,6 +140,36 @@ public class DataStorage {
 		}
 		return 0;
 	}
+
+	public int getLocalAvailableDayKlinesStockIDList(List<String> list) {
+		if (list == null) {
+			return -1;
+		}
+		
+		String rootPath = dataRoot();
+		File rootDir = new File(rootPath);
+		
+		if (!rootDir.exists() || !rootDir.isDirectory()) {
+			return -2;
+		}
+		
+		File[] subDirs = rootDir.listFiles(File::isDirectory);
+		if (subDirs == null) {
+			return -3;
+		}
+		
+		for (File subDir : subDirs) {
+			String stockDayKFilePath = subDir.getAbsolutePath() + "/" + LocalConfig.STOCK_DAYK_FILENAME;
+			File dayKFile = new File(stockDayKFilePath);
+			
+			if (dayKFile.exists() && dayKFile.isFile()) {
+				list.add(subDir.getName());
+			}
+		}
+		
+		return 0;
+	}
+
     public int getLocalStockIDKLineList(String id, List<KLine> container) {
 		int error = 0;
 		
