@@ -9,16 +9,22 @@ import pers.di.common.CSystem;
 import pers.di.common.CTest;
 import pers.di.common.CUtilsMath;
 import pers.di.dataprovider.DataProvider;
+import pers.di.dataprovider.DataTestHelper;
 import pers.di.model.KLine;
 import pers.di.model.TimePrice;
 
 public class TestStockDataEngine {
+	public static List<String> stockIDs = new ArrayList<String>()
+		{{add("999999");add("600000");;add("600056");add("300163");add("002468");}};
+
     public static int s_testCount_listenerX = 0;
 	public static int s_testCount_listenerY = 0;
 
     @CTest.setup
     public void setup() {
         CLog.info("TestStockDataEngine.setup");
+		String newestDate = "2025-01-02";
+		DataTestHelper.InitLocalData(newestDate, stockIDs);
     }
     @CTest.teardown
     public void teardown() {
@@ -35,24 +41,25 @@ public class TestStockDataEngine {
 			CListObserver<KLine> cDAKLines = context.getDayKLines(stockID);
 			if(cDAKLines.size() > 0)
 			{
-				KLine cCurrentKLine =  cDAKLines.get(cDAKLines.size()-1);
-//				CLog.output("TEST", "AllStockCnt:%d ID:%s ALLKLineSize:%d Date:%s Open:%.3f Close:%.3f", 
-//						context.pool().size(),
-//						stockID,
-//						cDAKLines.size(),
-//						cCurrentKLine.date,
-//						cCurrentKLine.open,
-//						cCurrentKLine.close);
+				KLine cCurrentKLine =  cDAKLines.end();
+				CLog.info("TEST", "AllStockCnt:%d ID:%s ALLKLineSize:%d Date:%s Open:%.3f Close:%.3f", 
+						context.getAllStockID().size(),
+						stockID,
+						cDAKLines.size(),
+						cCurrentKLine.date,
+						cCurrentKLine.open,
+						cCurrentKLine.close);
 				testDayCount++;
-				if(cCurrentKLine.date.equals("2017-01-03"))
+				if(cCurrentKLine.date.equals("2024-09-02"))
 				{
-					CTest.EXPECT_DOUBLE_EQ(cCurrentKLine.open, 10.22, 2);
+					CTest.EXPECT_STR_EQ(context.date(), cCurrentKLine.date); 
+					CTest.EXPECT_DOUBLE_EQ(cCurrentKLine.open, 1.59, 2);
 					s_testCount_listenerX++;
 				}
-				if(cCurrentKLine.date.equals("2017-02-03"))
+				if(cCurrentKLine.date.equals("2024-12-11"))
 				{
-					CTest.EXPECT_DOUBLE_EQ(cCurrentKLine.close, 10.12, 2);
-					CTest.EXPECT_LONG_EQ(testDayCount, 1466);
+					CTest.EXPECT_DOUBLE_EQ(cCurrentKLine.close, 2.79, 2);
+					CTest.EXPECT_LONG_EQ(testDayCount, 66);
 					s_testCount_listenerX++;
 				}
 			}
@@ -78,44 +85,44 @@ public class TestStockDataEngine {
 		@Override
 		public void onTradingDayFinish(DAContext context)
 		{
-			if(context.date().equals("2004-10-22"))
+			if(context.date().equals("2024-09-30"))
 			{
 				String stockID = "600056";
 				CListObserver<KLine> cDAKLines = context.getDayKLines(stockID);
 				if(cDAKLines.size() > 0)
 				{
-					KLine cCurrentKLine =  cDAKLines.get(cDAKLines.size()-1);
-//					CLog.output("TEST", "AllStockCnt:%d ID:%s ALLKLineSize:%d Date:%s O:%.3f C:%.3f L:%.3f H:%.3f", 
-//							context.pool().size(),
-//							stockID,
-//							cDAKLines.size(),
-//							cCurrentKLine.date,
-//							cCurrentKLine.open,
-//							cCurrentKLine.close,
-//							cCurrentKLine.low,
-//							cCurrentKLine.high);
-					CTest.EXPECT_DOUBLE_EQ(cCurrentKLine.low, -1.185, 2);
+					KLine cCurrentKLine =  cDAKLines.end();
+					CLog.info("TEST", "AllStockCnt:%d ID:%s ALLKLineSize:%d Date:%s O:%.3f C:%.3f L:%.3f H:%.3f", 
+							context.getAllStockID().size(),
+							stockID,
+							cDAKLines.size(),
+							cCurrentKLine.date,
+							cCurrentKLine.open,
+							cCurrentKLine.close,
+							cCurrentKLine.low,
+							cCurrentKLine.high);
+					CTest.EXPECT_DOUBLE_EQ(cCurrentKLine.low, 10.92, 2);
 					s_testCount_listenerY++;
 				}
 			}
-			if(context.date().equals("2007-11-12"))
+			if(context.date().equals("2025-01-02"))
 			{
 				String stockID = "600056";
 				CListObserver<KLine> cDAKLines = context.getDayKLines(stockID);
 				if(cDAKLines.size() > 0)
 				{
-					KLine cCurrentKLine =  cDAKLines.get(cDAKLines.size()-1);
-//					CLog.output("TEST", "AllStockCnt:%d ID:%s ALLKLineSize:%d Date:%s O:%.3f C:%.3f L:%.3f H:%.3f", 
-//							context.pool().size(),
-//							stockID,
-//							cDAKLines.size(),
-//							cCurrentKLine.date,
-//							cCurrentKLine.open,
-//							cCurrentKLine.close,
-//							cCurrentKLine.low,
-//							cCurrentKLine.high);
-					CTest.EXPECT_DOUBLE_EQ(cCurrentKLine.open, 4.58, 2);
-					CTest.EXPECT_DOUBLE_EQ(cCurrentKLine.close, 4.52, 2);
+					KLine cCurrentKLine =  cDAKLines.end();
+					CLog.info("TEST", "AllStockCnt:%d ID:%s ALLKLineSize:%d Date:%s O:%.3f C:%.3f L:%.3f H:%.3f", 
+							context.getAllStockID().size(),
+							stockID,
+							cDAKLines.size(),
+							cCurrentKLine.date,
+							cCurrentKLine.open,
+							cCurrentKLine.close,
+							cCurrentKLine.low,
+							cCurrentKLine.high);
+					CTest.EXPECT_DOUBLE_EQ(cCurrentKLine.open, 11.00, 2);
+					CTest.EXPECT_DOUBLE_EQ(cCurrentKLine.close, 10.69, 2);
 					s_testCount_listenerY++;
 				}
 			}
@@ -127,13 +134,19 @@ public class TestStockDataEngine {
 		EngineListenerTesterX cEngineListenerTesterX = new EngineListenerTesterX();
 		EngineListenerTesterY cEngineListenerTesterY = new EngineListenerTesterY();
 		
-		//StockDataEngine.instance().config("TriggerMode", "HistoryTest 2004-01-01 2017-02-03");
-		StockDataEngine.getInstance().config("TriggerMode", "HistoryTest 2004-09-01 2017-12-30");
+		StockDataEngine.getInstance().config("TriggerMode", "HistoryTest 2024-09-01 2025-01-02");
 		StockDataEngine.getInstance().registerListener(cEngineListenerTesterX);
 		StockDataEngine.getInstance().registerListener(cEngineListenerTesterY);
 		StockDataEngine.getInstance().run();
 		
 		CTest.EXPECT_LONG_EQ(s_testCount_listenerX, 2);
-		CTest.EXPECT_LONG_EQ(s_testCount_listenerY, 5 + 242);
+		CTest.EXPECT_LONG_EQ(s_testCount_listenerY, 4);
+	}
+
+	public static void main(String[] args) {
+		CSystem.start();
+		CTest.ADD_TEST(TestStockDataEngine.class);
+		CTest.RUN_ALL_TESTS("");
+		CSystem.stop();
 	}
 }

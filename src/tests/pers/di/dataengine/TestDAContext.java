@@ -8,7 +8,7 @@ import pers.di.common.CLog;
 import pers.di.common.CSystem;
 import pers.di.common.CTest;
 import pers.di.common.CUtilsMath;
-import pers.di.dataengine.internal.DStockDataEngineImpl;
+import pers.di.dataengine.internal.StockDataEngineImpl;
 import pers.di.dataprovider.DataProvider;
 import pers.di.dataprovider.DataTestHelper;
 import pers.di.dataprovider.TestDataProvider;

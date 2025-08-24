@@ -23,7 +23,12 @@ public class DAContext {
         return mDate;
     }
     public void setDate(String date) {
+        setDateTime(date, "00:00:00");
+        
+    }
+    public void setDateTime(String date, String time) {
         mDate = date;
+        mTime = time;
     }
 
     public CListObserver<String> getAllStockID() {
@@ -49,6 +54,7 @@ public class DAContext {
     }
 
     private String mDate;
+    private String mTime;
     private List<String> mStockIDList;
     private Map<String, List<KLine>> mDayKLinesMap;
 }
