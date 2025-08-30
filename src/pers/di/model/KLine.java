@@ -38,6 +38,9 @@ public class KLine implements Comparable
 	{
 		return (high-low)/low;
 	}
+	public boolean isRed() {
+		return close>open;
+	}
 	
 	public void CopyFrom(KLine c)
 	{
