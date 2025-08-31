@@ -8,6 +8,7 @@ import pers.di.dataengine.IEngineListener;
 import pers.di.dquant.IStockPickStrategy;
 import pers.di.dquant.PickerReport;
 import pers.di.model.KLine;
+import pers.di.model.StockUtils;
 
 public class PickerDataEngineListener extends IEngineListener {
     @Override
@@ -15,7 +16,8 @@ public class PickerDataEngineListener extends IEngineListener {
         if (null == mStockPickStrategy) {
             return;
         }
-        //CLog.info("DQUANT", "PickerDataEngineListener date:%s", context.date());
+        // 根据策略添加选入列表
+        // CLog.info("DQUANT", "PickerDataEngineListener date:%s", context.date());
         for (int i = 0; i < context.getAllStockID().size(); i++) {
             String stockID = context.getAllStockID().get(i);
             CListObserver<KLine> klineList = context.getDayKLines(stockID);
@@ -23,7 +25,42 @@ public class PickerDataEngineListener extends IEngineListener {
             if (bPick) {
                 CLog.info("DQUANT", "StockPickStrategy date:%s stockID:%s", 
                     context.date(), stockID);
-                    mPickerReport.pickList.add(new Pair<String, String>(context.date(), stockID));
+                Pair<String, String> pickPair = new Pair<String, String>(context.date(), stockID);
+                mPickerReport.pickList.add(pickPair);
+                mPickerReport.pickKLineMap.put(pickPair, klineList.end());
+            }
+        }
+        // 统计选入列表的后期表现
+        for (int i = 0; i < mPickerReport.pickList.size(); i++) {
+            Pair<String, String> pair = mPickerReport.pickList.get(i);
+            String datePick = pair.getKey();
+            String stockID = pair.getValue();
+            CListObserver<KLine> klineList = context.getDayKLines(stockID);
+            if (null == klineList) {
+                continue;
+            }
+            // 短期胜负检查
+            KLine kline = klineList.end();
+            if (StockUtils.getDayCountBetweenBeginEnd(klineList, datePick, kline.date) < 10) {
+                if (mPickerReport.shortLoseMap.containsKey(pair)) {
+                    continue;
+                }
+                if (mPickerReport.shortWinMap.containsKey(pair)) {
+                    continue;
+                }
+                KLine klinePick = mPickerReport.pickKLineMap.get(pair);
+                double winRate = (kline.close - klinePick.close)/klinePick.close;
+                if (winRate <= -0.05) {
+                    mPickerReport.shortLoseMap.put(pair, kline.date);
+                    CLog.info("DQUANT", "StockPickStrategy date:%s stockID:%s shortLose %s", 
+                        pair.getKey(), pair.getValue(), kline.date);
+                } else if (winRate >= 0.05) {
+                    mPickerReport.shortWinMap.put(pair, kline.date);
+                    CLog.info("DQUANT", "StockPickStrategy date:%s stockID:%s shortWin %s", 
+                        pair.getKey(), pair.getValue(), kline.date);
+                } else {
+                    // do nothing
+                }
             }
         }
     }

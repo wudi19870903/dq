@@ -51,6 +51,7 @@ public class TestDQuant {
 	public static void test_runUserPickAnalysis() {
         PickerReport report = new PickerReport();
         DQuant.getInstance().runUserPickAnalysis("HistoryTest 2024-09-01 2025-01-02", new MyTestPickerA(), report);
+        report.dump();
         CTest.EXPECT_TRUE(report.pickList.size() > 0);
         int pickCount = 0;
         for (int i = 0; i < report.pickList.size(); i++) { 
@@ -63,13 +64,24 @@ public class TestDQuant {
             }
         }
         CTest.EXPECT_LONG_EQ(pickCount, 10);
+        CTest.EXPECT_LONG_EQ(report.pickKLineMap.size(), 10);
+        CTest.EXPECT_LONG_EQ(report.shortWinMap.size(), 7);
+        CTest.EXPECT_STR_EQ(report.shortWinMap.get(new Pair<String, String>("2024-09-24", "600000")),
+            "2024-09-26");
+        CTest.EXPECT_STR_EQ(report.shortWinMap.get(new Pair<String, String>("2024-11-05", "600056")),
+            "2024-11-12");
+        CTest.EXPECT_LONG_EQ(report.shortLoseMap.size(), 1);
+        CTest.EXPECT_STR_EQ(report.shortLoseMap.get(new Pair<String, String>("2024-12-09", "300163")),
+            "2024-12-17");
+        CTest.EXPECT_DOUBLE_EQ(report.getShortWinRate(), 0.7);
     }
 
     public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		CSystem.start();
 		CLog.config_setTag("TEST", true);
-		CLog.config_setTag("ACCOUNT", false);
+		CLog.config_setTag("REPORT", true);
+        CLog.config_setTag("ACCOUNT", false);
 		CTest.ADD_TEST(TestDQuant.class);
 		CTest.RUN_ALL_TESTS("");
 		CLog.debug("TEST", "END");

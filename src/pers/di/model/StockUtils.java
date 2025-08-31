@@ -347,4 +347,23 @@ public class StockUtils {
 		}
 		return index;
 	}
+
+	/* 获取某时间段内交易日数, 涵盖两端的日期
+	 * 如2010-01-01和2010-01-03，则返回3
+	 * -1为出错
+	 */
+	static public int getDayCountBetweenBeginEnd(CListObserver<KLine> oriObs, String beginDate, String endDate) {
+		int iCount = 0;
+		if(beginDate.compareTo(endDate) > 0) {
+			return -1;
+		}
+		for(int i = 0; i < oriObs.size(); i++) {
+			KLine cDayKDataTmp = oriObs.get(i);
+			if(cDayKDataTmp.date.compareTo(beginDate) >= 0 &&
+					cDayKDataTmp.date.compareTo(endDate) <= 0) {
+				iCount++;
+			}
+		}
+		return iCount;
+	}
 }
