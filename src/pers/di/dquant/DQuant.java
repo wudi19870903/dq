@@ -5,6 +5,7 @@ import pers.di.dataengine.DAContext;
 import pers.di.dataengine.StockDataEngine;
 import pers.di.dataengine.internal.StockDataEngineImpl;
 import pers.di.dquant.internal.DQuantImpl;
+import pers.di.dquant.internal.PickerReport;
 import pers.di.model.KLine;
 
 public class DQuant {

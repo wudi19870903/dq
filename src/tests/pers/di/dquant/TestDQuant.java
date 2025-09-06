@@ -10,6 +10,7 @@ import pers.di.common.CSystem;
 import pers.di.common.CTest;
 import pers.di.dataengine.DAContext;
 import pers.di.dataprovider.DataTestHelper;
+import pers.di.dquant.internal.PickerReport;
 import pers.di.model.KLine;
 
 public class TestDQuant {
@@ -27,7 +28,7 @@ public class TestDQuant {
         CLog.info("TestDAContext.teardown");
     }
 
-    public static class MyTestPickerA extends IStockPickStrategy {
+    public static class MyTestPickerA implements IStockPickStrategy {
         public boolean onUserPick(DAContext context, String stockID, CListObserver<KLine> kLines) {
             if (kLines.size() < 5) {
                 return false;

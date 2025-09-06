@@ -3,7 +3,6 @@ package pers.di.dquant.internal;
 import pers.di.dataengine.StockDataEngine;
 import pers.di.dquant.DQuant;
 import pers.di.dquant.IStockPickStrategy;
-import pers.di.dquant.PickerReport;
 
 public class DQuantImpl extends DQuant {
     public DQuantImpl() {

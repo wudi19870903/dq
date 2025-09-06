@@ -6,7 +6,6 @@ import pers.di.common.CLog;
 import pers.di.dataengine.DAContext;
 import pers.di.dataengine.IEngineListener;
 import pers.di.dquant.IStockPickStrategy;
-import pers.di.dquant.PickerReport;
 import pers.di.model.KLine;
 import pers.di.model.StockUtils;
 
@@ -31,42 +30,11 @@ public class PickerDataEngineListener extends IEngineListener {
             }
         }
         // 统计选入列表的后期表现
-        for (int i = 0; i < mPickerReport.pickList.size(); i++) {
-            Pair<String, String> pair = mPickerReport.pickList.get(i);
-            String datePick = pair.getKey();
-            String stockID = pair.getValue();
-            CListObserver<KLine> klineList = context.getDayKLines(stockID);
-            if (null == klineList) {
-                continue;
-            }
-            // 短期胜负检查
-            KLine kline = klineList.end();
-            if (StockUtils.getDayCountBetweenBeginEnd(klineList, datePick, kline.date) < 10) {
-                if (mPickerReport.shortLoseMap.containsKey(pair)) {
-                    continue;
-                }
-                if (mPickerReport.shortWinMap.containsKey(pair)) {
-                    continue;
-                }
-                KLine klinePick = mPickerReport.pickKLineMap.get(pair);
-                double winRate = (kline.close - klinePick.close)/klinePick.close;
-                if (winRate <= -0.05) {
-                    mPickerReport.shortLoseMap.put(pair, kline.date);
-                    CLog.info("DQUANT", "StockPickStrategy date:%s stockID:%s shortLose %s", 
-                        pair.getKey(), pair.getValue(), kline.date);
-                } else if (winRate >= 0.05) {
-                    mPickerReport.shortWinMap.put(pair, kline.date);
-                    CLog.info("DQUANT", "StockPickStrategy date:%s stockID:%s shortWin %s", 
-                        pair.getKey(), pair.getValue(), kline.date);
-                } else {
-                    // do nothing
-                }
-            }
-        }
+        mPickerReport.onTradingDayFinish(context);
     }
 
     public void setStockPickStrategy(IStockPickStrategy strategy) {
-        CLog.info("DQUANT", "setStockPickStrategy");
+        CLog.info("DQUANT", "setStockPickStrategy %s", strategy.getClass().getName());
     	mStockPickStrategy = strategy;
     }
     public void setPickerReport(PickerReport report) {
