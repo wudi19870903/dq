@@ -18,6 +18,12 @@ public class DQuant {
      */
     public void runUserPickAnalysis(String triggerCfgStr, IStockPickStrategy strategy, PickerReport report) {}
 
+    /*
+     * 运行用户自定义的选股策略进行交易分析
+     * 选股后，第二天开盘价进行买入触发
+     */
+    public void runUserTransactionAnalysis(String triggerCfgStr, IStockPickStrategy strategy) {}
+
     // singleton
     private static volatile DQuant instance;
     protected DQuant() {

@@ -15,6 +15,12 @@ import pers.di.model.KLine;
 /**
  * 特征：
  * 平台整理后的二次突破
+ * 测试结果
+ * HistoryTest 2020-01-01 2024-01-02
+ * check 20 days, check win 0.050000, check lose 0.200000
+ * short win rate: 0.459799 (366/796)
+ * short lose rate: 0.020101 (16/796)
+ * unknown rate: 0.520101 (414/796)
  */
 public class RunPickAnalysisX3 implements IStockPickStrategy {
 
@@ -143,7 +149,7 @@ public class RunPickAnalysisX3 implements IStockPickStrategy {
         }
         // 运行选股策略,输出选股结果
         PickerReport report = new PickerReport();
-        DQuant.getInstance().runUserPickAnalysis("HistoryTest 2023-01-01 2024-01-02",
+        DQuant.getInstance().runUserPickAnalysis("HistoryTest 2020-01-01 2024-01-02",
             instancePickStrategy, 
             report);
         report.dump();

@@ -13,7 +13,7 @@ import pers.di.dataprovider.DataTestHelper;
 import pers.di.dquant.internal.PickerReport;
 import pers.di.model.KLine;
 
-public class TestDQuant {
+public class TestDQuantPick {
     public static List<String> stockIDs = new ArrayList<String>()
 			{{add("999999");add("600000");;add("600056");add("300163");add("002468");}};
 
@@ -83,7 +83,7 @@ public class TestDQuant {
 		CLog.config_setTag("TEST", true);
 		CLog.config_setTag("REPORT", true);
         CLog.config_setTag("ACCOUNT", false);
-		CTest.ADD_TEST(TestDQuant.class);
+		CTest.ADD_TEST(TestDQuantPick.class);
 		CTest.RUN_ALL_TESTS("");
 		CLog.debug("TEST", "END");
 		CSystem.stop();

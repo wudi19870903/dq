@@ -9,6 +9,7 @@ public class DQuantImpl extends DQuant {
         super();
         mStockDataEngine = StockDataEngine.getInstance();
         mPickerDataEngineListener = new PickerDataEngineListener();
+        mTransactionDataEngineListener = new TransactionDataEngineListener();
     }
 
     @Override
@@ -20,6 +21,15 @@ public class DQuantImpl extends DQuant {
         mStockDataEngine.run();
     }
 
+    @Override
+    public void runUserTransactionAnalysis(String triggerCfgStr, IStockPickStrategy strategy) {
+        mTransactionDataEngineListener.setStockPickStrategy(strategy);
+        mStockDataEngine.config("TriggerMode", triggerCfgStr);
+        mStockDataEngine.registerListener(mTransactionDataEngineListener);
+        mStockDataEngine.run();
+    }
+
     private StockDataEngine mStockDataEngine;
     private PickerDataEngineListener mPickerDataEngineListener;
+    private TransactionDataEngineListener mTransactionDataEngineListener;
 }

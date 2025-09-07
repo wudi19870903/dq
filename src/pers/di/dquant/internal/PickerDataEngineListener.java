@@ -10,6 +10,11 @@ import pers.di.model.KLine;
 import pers.di.model.StockUtils;
 
 public class PickerDataEngineListener extends IEngineListener {
+    public PickerDataEngineListener() {
+         mPickerReport = new PickerReport(); // 默认选股报告
+         mPickerReport.reset();
+    }
+
     @Override
 	public void onTradingDayFinish(DAContext context) {
         if (null == mStockPickStrategy) {

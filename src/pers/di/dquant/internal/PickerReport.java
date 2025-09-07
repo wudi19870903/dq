@@ -11,12 +11,19 @@ import pers.di.dataengine.DAContext;
 import pers.di.model.KLine;
 import pers.di.model.StockUtils;
 
+/*
+ * 选股报告
+ * 在检查周期内，测量触发盈利和亏损的概率
+ */
 public class PickerReport {
-    private long DAYCOUNT_CHECK = 20; // 参数：统计N天的表现
-    private double WIN_RATE_CHECK = 0.05; // 参数：盈利率检查
-    private double LOSE_RATE_CHECK = 0.20; // 参数：亏损率检查
-
     public PickerReport () {
+        this(20, 0.05, 0.20);
+    }
+
+    public PickerReport (long dayCountCheck, double winRateCheck, double loseRateCheck) {
+        DAYCOUNT_CHECK = dayCountCheck;
+        WIN_RATE_CHECK = winRateCheck;
+        LOSE_RATE_CHECK = loseRateCheck;
         pickList = new ArrayList<Pair<String, String>>();
         pickKLineMap = new java.util.HashMap<Pair<String, String>, KLine>();
         shortWinMap = new java.util.HashMap<Pair<String, String>, String>();
@@ -107,6 +114,10 @@ public class PickerReport {
         return (double)(pickList.size() - shortWinMap.size() - shortLoseMap.size())/ pickList.size();
     }  
     
+
+    private long DAYCOUNT_CHECK = 20; // 参数：统计N天的表现
+    private double WIN_RATE_CHECK = 0.05; // 参数：盈利率检查
+    private double LOSE_RATE_CHECK = 0.20; // 参数：亏损率检查
     /* 
      * 选择列表（日期，股票ID）
     */ 

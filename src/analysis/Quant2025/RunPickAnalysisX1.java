@@ -160,7 +160,7 @@ public class RunPickAnalysisX1 implements IStockPickStrategy {
         }
         // 运行选股策略,输出选股结果
         PickerReport report = new PickerReport();
-        DQuant.getInstance().runUserPickAnalysis("HistoryTest 2023-01-01 2024-01-02",
+        DQuant.getInstance().runUserPickAnalysis("HistoryTest 2020-01-01 2024-01-02",
             instancePickStrategy, 
             report);
         report.dump();
