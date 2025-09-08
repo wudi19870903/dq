@@ -48,28 +48,25 @@ public class DataWebStockDayK {
 		int error = 0;
 		
 		String innerID = "";
-		if(id.startsWith("60") && 6 == id.length())
-		{
+		if((id.startsWith("60") || id.startsWith("68")) && 6 == id.length()) {
+			// 600000 上海
+			// 688716 科创
 			innerID = "sh" + id;
-		}
-		else if((id.startsWith("00") ||  id.startsWith("30")) && 6 == id.length())
-		{
+		} else if((id.startsWith("00") ||  id.startsWith("30")) && 6 == id.length()) {
+			// 000001 深圳
+			// 300163 创业
 			innerID = "sz" + id;
-		}
-		else if((id.startsWith("83") ||  id.startsWith("87") ||  id.startsWith("92")) && 6 == id.length())
-		{
+		} else if((id.startsWith("83") ||  id.startsWith("87") ||  id.startsWith("92")) && 6 == id.length()) {
+			// 832522 873122 920682 北京
 			innerID = "bj" + id;
-		}
-		else if(id.startsWith("999999")) // 上证指数
-		{
+		} else if(id.startsWith("999999")) {
+			// 999999 上证指数
 			innerID = "sh" + "000001";
-		}
-		else
-		{
+		} else {
 			error = -10;
 			return error;
 		}
-		
+
 		// http://money.finance.sina.com.cn/quotes_service/api/json_v2.php/CN_MarketData.getKLineData?symbol=sz002095&scale=240&ma=no&datalen=1023
 		String urlStr = "http://money.finance.sina.com.cn/quotes_service/api/json_v2.php/CN_MarketData.getKLineData?";
 		urlStr = urlStr + "symbol=" + innerID + "&scale=240&ma=no&datalen=2500";

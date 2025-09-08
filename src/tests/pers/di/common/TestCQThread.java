@@ -4,7 +4,10 @@ import pers.di.common.*;
 import pers.di.common.CQThread.*;
 
 public class TestCQThread {
-	
+	private static final boolean DEBUG_TESTCASE_LOG = false;
+	private static void TESTCASE_LOG(String s) {
+		if (DEBUG_TESTCASE_LOG) CLog.debug("TEST", s);
+	}
 	public static class TestRequest extends CQThreadRequest
 	{
 		public TestRequest(int index)

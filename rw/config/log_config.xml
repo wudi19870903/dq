@@ -1,0 +1,6 @@
+<config>
+	<tag name='COMMON' output='0' />
+	<tag name='TEST' output='1' />
+	<tag name='DENGINE' output='0' />
+	<tag name='DQUANT' output='0' />
+</config>

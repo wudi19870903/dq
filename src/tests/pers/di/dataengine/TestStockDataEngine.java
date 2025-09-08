@@ -14,6 +14,10 @@ import pers.di.model.KLine;
 import pers.di.model.TimePrice;
 
 public class TestStockDataEngine {
+    private static final boolean DEBUG_TESTCASE_LOG = false;
+	private static void TESTCASE_LOG(String format, Object... args) {
+		if (DEBUG_TESTCASE_LOG) CLog.info("TEST", String.format(format, args));
+	}
 	public static List<String> stockIDs = new ArrayList<String>()
 		{{add("999999");add("600000");;add("600056");add("300163");add("002468");}};
 
@@ -22,13 +26,13 @@ public class TestStockDataEngine {
 
     @CTest.setup
     public void setup() {
-        CLog.info("TestStockDataEngine.setup");
+        TESTCASE_LOG("TestStockDataEngine.setup");
 		String newestDate = "2025-01-02";
 		DataTestHelper.InitLocalData(newestDate, stockIDs);
     }
     @CTest.teardown
     public void teardown() {
-        CLog.info("TestStockDataEngine.teardown");
+        TESTCASE_LOG("TestStockDataEngine.teardown");
     }
 
     public static class EngineListenerTesterX extends IEngineListener
@@ -42,7 +46,7 @@ public class TestStockDataEngine {
 			if(cDAKLines.size() > 0)
 			{
 				KLine cCurrentKLine =  cDAKLines.end();
-				CLog.info("TEST", "AllStockCnt:%d ID:%s ALLKLineSize:%d Date:%s Open:%.3f Close:%.3f", 
+				TESTCASE_LOG("AllStockCnt:%d ID:%s ALLKLineSize:%d Date:%s Open:%.3f Close:%.3f", 
 						context.getAllStockID().size(),
 						stockID,
 						cDAKLines.size(),
@@ -92,7 +96,7 @@ public class TestStockDataEngine {
 				if(cDAKLines.size() > 0)
 				{
 					KLine cCurrentKLine =  cDAKLines.end();
-					CLog.info("TEST", "AllStockCnt:%d ID:%s ALLKLineSize:%d Date:%s O:%.3f C:%.3f L:%.3f H:%.3f", 
+					TESTCASE_LOG("AllStockCnt:%d ID:%s ALLKLineSize:%d Date:%s O:%.3f C:%.3f L:%.3f H:%.3f", 
 							context.getAllStockID().size(),
 							stockID,
 							cDAKLines.size(),
@@ -112,7 +116,7 @@ public class TestStockDataEngine {
 				if(cDAKLines.size() > 0)
 				{
 					KLine cCurrentKLine =  cDAKLines.end();
-					CLog.info("TEST", "AllStockCnt:%d ID:%s ALLKLineSize:%d Date:%s O:%.3f C:%.3f L:%.3f H:%.3f", 
+					TESTCASE_LOG( "AllStockCnt:%d ID:%s ALLKLineSize:%d Date:%s O:%.3f C:%.3f L:%.3f H:%.3f", 
 							context.getAllStockID().size(),
 							stockID,
 							cDAKLines.size(),

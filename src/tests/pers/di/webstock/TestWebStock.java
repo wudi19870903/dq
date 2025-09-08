@@ -3,6 +3,7 @@ package pers.di.webstock;
 import java.util.ArrayList;
 import java.util.List;
 
+import pers.di.common.CLog;
 import pers.di.common.CSystem;
 import pers.di.common.CTest;
 import pers.di.common.CUtilsDateTime;
@@ -11,6 +12,10 @@ import pers.di.webstock.IWebStock.*;
 import pers.di.model.*;
 
 public class TestWebStock {
+	private static final boolean DEBUG_TESTCASE_LOG = false;
+	private static void TESTCASE_LOG(String s) {
+		if (DEBUG_TESTCASE_LOG) CLog.debug("TEST", s);
+	}
 	
 	@CTest.test
 	public void test_getDividendPayout()
@@ -21,11 +26,11 @@ public class TestWebStock {
 			int error = WebStock.instance().getDividendPayout(StockID, container);
 			if(0 == WebStock.instance().getDividendPayout(StockID, container))
 			{
-				System.out.println(String.format("DataWebStockDividendPayout.getDividendPayout %s OK!", StockID));
+				TESTCASE_LOG(String.format("DataWebStockDividendPayout.getDividendPayout %s OK!", StockID));
 				for(int i = 0; i < container.size(); i++)  
 		        {  
 					DividendPayout cDividendPayout = container.get(i);  
-					System.out.println(String.format("%s %.1f %.1f %.1f",
+					TESTCASE_LOG(String.format("%s %.1f %.1f %.1f",
 							cDividendPayout.date,
 							cDividendPayout.songGu,
 							cDividendPayout.zhuanGu,
@@ -47,11 +52,11 @@ public class TestWebStock {
 			int error = WebStock.instance().getDividendPayout(StockID, container);
 			if(0 == WebStock.instance().getDividendPayout(StockID, container))
 			{
-				System.out.println(String.format("DataWebStockDividendPayout.getDividendPayout %s OK!", StockID));
+				TESTCASE_LOG(String.format("DataWebStockDividendPayout.getDividendPayout %s OK!", StockID));
 				for(int i = 0; i < container.size(); i++)  
 		        {  
 					DividendPayout cDividendPayout = container.get(i);  
-					System.out.println(String.format("%s %.1f %.1f %.1f",
+					TESTCASE_LOG(String.format("%s %.1f %.1f %.1f",
 							cDividendPayout.date,
 							cDividendPayout.songGu,
 							cDividendPayout.zhuanGu,
@@ -77,21 +82,21 @@ public class TestWebStock {
 		int error = WebStock.instance().getKLine(stockID, ctnKLine);
 		if(0 == error)
 		{
-			System.out.println("List<TradeDetail> size=" + ctnKLine.size());
+			TESTCASE_LOG("List<TradeDetail> size=" + ctnKLine.size());
 			if(ctnKLine.size() > 11)
 			{
 				for(int i = 0; i < 5; i++)  
 		        { 
 					KLine cKLine = ctnKLine.get(i);  
-		            System.out.println(cKLine.date + "," 
+		            TESTCASE_LOG(cKLine.date + "," 
 		            		+ cKLine.open + "," + cKLine.close
 		            		 + "," + cKLine.low + "," + cKLine.high);  
 		        }
-				System.out.println("...");
+				TESTCASE_LOG("...");
 				for(int i = ctnKLine.size()-5; i < ctnKLine.size(); i++)  
 		        { 
 					KLine cKLine = ctnKLine.get(i);  
-		            System.out.println(cKLine.date + "," 
+		            TESTCASE_LOG(cKLine.date + "," 
 		            		+ cKLine.open + "," + cKLine.close
 		            		 + "," + cKLine.low + "," + cKLine.high);  
 		        }
@@ -101,7 +106,7 @@ public class TestWebStock {
 				for(int i = 0; i < ctnKLine.size(); i++)  
 		        {  
 					KLine cKLine = ctnKLine.get(i);  
-		            System.out.println(cKLine.date + "," 
+		            TESTCASE_LOG(cKLine.date + "," 
 		            		+ cKLine.open + "," + cKLine.close
 		            		 + "," + cKLine.low + "," + cKLine.high);  
 		        }
@@ -109,9 +114,9 @@ public class TestWebStock {
 		}
 		else
 		{
-			System.out.println("ERROR:" + error);
+			TESTCASE_LOG("ERROR:" + error);
 		}
-		System.out.println("id:" + stockID + " kline.size:" + ctnKLine.size());
+		TESTCASE_LOG("id:" + stockID + " kline.size:" + ctnKLine.size());
 		CTest.EXPECT_LONG_EQ(error, 0);
 		CTest.EXPECT_TRUE(ctnKLine.size() > 250);
 		CTest.EXPECT_TRUE(hasDateInKLineList(ctnKLine, "2025-01-02"));

@@ -8,7 +8,11 @@ import pers.di.account.*;
 import pers.di.common.*;
 
 public class TestAccountController {
-	
+	private static final boolean DEBUG_TESTCASE_LOG = false;
+	private static void TESTCASE_LOG(String format, Object... args) {
+		if (DEBUG_TESTCASE_LOG) CLog.info("TEST", String.format(format, args));
+	}
+
 	public static String s_accountDataRoot = CSystem.getRWRoot() + "\\account";
 	
 	public static double s_transactionCostsRatioBuy = 0.02f;
@@ -358,12 +362,12 @@ public class TestAccountController {
 		}
 		
 		String dumpInfoBeforeEnd = acc.dump();
-		CLog.debug("TEST", "\n%s", dumpInfoBeforeEnd);
+		TESTCASE_LOG("\n%s", dumpInfoBeforeEnd);
 		
 		cAccountController.newDayEnd();
 		
 		String dumpInfoAfterEnd = acc.dump();
-		CLog.debug("TEST", "\n%s", dumpInfoAfterEnd);
+		TESTCASE_LOG("\n%s", dumpInfoAfterEnd);
 		
 		cAccountController.close();
 		

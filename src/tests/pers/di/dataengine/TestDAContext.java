@@ -16,18 +16,22 @@ import pers.di.model.KLine;
 import pers.di.model.TimePrice;
 
 public class TestDAContext {
+    private static final boolean DEBUG_TESTCASE_LOG = false;
+	private static void TESTCASE_LOG(String format, Object... args) {
+		if (DEBUG_TESTCASE_LOG) CLog.info("TEST", String.format(format, args));
+	}
     public static List<String> stockIDs = new ArrayList<String>()
 			{{add("999999");add("600000");;add("600056");add("300163");add("002468");}};
 
     @CTest.setup
     public void setup() {
-        CLog.info("TestDAContext.setup");
+        TESTCASE_LOG("TestDAContext.setup");
         String newestDate = "2025-01-02";
 		DataTestHelper.InitLocalData(newestDate, stockIDs);
     }
     @CTest.teardown
     public void teardown() {
-        CLog.info("TestDAContext.teardown");
+        TESTCASE_LOG("TestDAContext.teardown");
     }
 
     @CTest.test

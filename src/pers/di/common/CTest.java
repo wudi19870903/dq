@@ -374,7 +374,8 @@ public abstract class CTest {
 	private static void outputProcess(String format, Object... args)
 	{
 		String logstr = String.format(format, args);
-		s_fmt.format("%s\n", logstr);
+		//s_fmt.format("%s\n", logstr);
+		CLog.info("TEST", logstr);
 	}
 	private static Formatter s_fmt = new Formatter(System.out);
 }

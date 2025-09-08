@@ -160,7 +160,7 @@ public class CLog {
 			while(!super.checkQuit())
 			{
 				CLog.flushLogContentCache();
-				this.Wait(1000*3);
+				this.Wait(500);
 			}
 		}
 		
@@ -260,7 +260,7 @@ public class CLog {
 			{
 				String defaultContent = ""
 						+ "<config>\n"
-						+ "\t<tag name='COMMON' output='1' />\n"
+						+ "\t<tag name='COMMON' output='0' />\n"
 						+ "\t<tag name='TEST' output='1' />\n"
 						+ "</config>\n";
 				CFileSystem.createDir(s_strConfig);
@@ -322,21 +322,11 @@ public class CLog {
 		String logstr = String.format(format, args);
 		output(LOGLEVEL.ERROR, target, logstr);
 	}
-	public static void error(String format, Object... args)
-	{
-		String logstr = String.format(format, args);
-		output(LOGLEVEL.ERROR, "TEST", logstr);
-	}
 	
 	public static void warning(String target, String format, Object... args)
 	{
 		String logstr = String.format(format, args);
 		output(LOGLEVEL.WARNING, target, logstr);
-	}
-	public static void warning(String format, Object... args)
-	{
-		String logstr = String.format(format, args);
-		output(LOGLEVEL.WARNING, "TEST", logstr);
 	}
 	
 	public static void info(String target, String format, Object... args)
@@ -344,21 +334,11 @@ public class CLog {
 		String logstr = String.format(format, args);
 		output(LOGLEVEL.INFO, target, logstr);
 	}
-	public static void info(String format, Object... args)
-	{
-		String logstr = String.format(format, args);
-		output(LOGLEVEL.INFO, "TEST", logstr);
-	}
 	
 	public static void debug(String target, String format, Object... args)
 	{
 		String logstr = String.format(format, args);
 		output(LOGLEVEL.DEBUG, target, logstr);
-	}
-	public static void debug(String format, Object... args)
-	{
-		String logstr = String.format(format, args);
-		output(LOGLEVEL.DEBUG, "TEST", logstr);
 	}
 	
 	private static void output(LOGLEVEL level, String target, String logstr)

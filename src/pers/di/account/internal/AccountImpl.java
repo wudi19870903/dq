@@ -117,7 +117,7 @@ public class AccountImpl implements IAccount {
 			// check input param
 			if(0 != amount%100 || amount<=0)
 			{
-				CLog.error("ACCOUNT", "@AccountEntity CommissionOrder amount error!");
+				CLog.error("ACCOUNT", "@AccountEntity CommissionOrder amount error! amount:%d", amount);
 				this.aceessUnLock();
 				return -1;
 			}
@@ -126,7 +126,7 @@ public class AccountImpl implements IAccount {
 			double costReservedMoney = amount*price*0.01 < 10? 10.0:amount*price*0.01;
 			if(Double.compare(money.get(), amount*price + costReservedMoney) < 0) // check money: stockMoney+reservedMoney
 			{
-				CLog.error("ACCOUNT", "@AccountEntity CommissionOrder money error! Please reserved stock money and cost money!");
+				CLog.info("ACCOUNT", "@AccountEntity CommissionOrder money error! Please reserved stock money and cost money!");
 				this.aceessUnLock();
 				return -1;
 			}
@@ -170,7 +170,7 @@ public class AccountImpl implements IAccount {
 			}
 			if(!bCheck)
 			{
-				CLog.error("ACCOUNT", "@AccountEntity CommissionOrder availableAmount error!");
+				CLog.info("ACCOUNT", "@AccountEntity CommissionOrder availableAmount error!");
 				this.aceessUnLock();
 				return -1;
 			}
@@ -659,7 +659,8 @@ public class AccountImpl implements IAccount {
 		for(int i=0; i<cHoldStockList.size(); i++ )
 		{
 			HoldStock cHoldStock = cHoldStockList.get(i);
-			DumpInfo+=String.format("\n    -HoldStock: %s %d %d %.3f %.3f %.3f", 
+			DumpInfo+=String.format("\n    -HoldStock: %s %s %d %d %.3f %.3f %.3f", 
+					cHoldStock.createDate,
 					cHoldStock.stockID,
 					cHoldStock.totalAmount, cHoldStock.availableAmount,
 					cHoldStock.refPrimeCostPrice, cHoldStock.curPrice, 

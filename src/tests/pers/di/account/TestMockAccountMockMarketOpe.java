@@ -10,6 +10,10 @@ import pers.di.common.CSystem;
 import pers.di.common.CTest;
 
 public class TestMockAccountMockMarketOpe {
+	private static final boolean DEBUG_TESTCASE_LOG = false;
+	private static void TESTCASE_LOG(String format, Object... args) {
+		if (DEBUG_TESTCASE_LOG) CLog.info("TEST", String.format(format, args));
+	}
     public static String s_accountDataRoot = CSystem.getRWRoot() + "\\account";
 	
 	@CTest.test
@@ -104,7 +108,7 @@ public class TestMockAccountMockMarketOpe {
 		
 		cAccountController.close();
 
-        CLog.info("TEST", cAccountController.account().dump());
+        TESTCASE_LOG(cAccountController.account().dump());
 	}
 	
 	

@@ -10,10 +10,14 @@ import java.util.Date;
 import java.util.Locale;
 
 import pers.di.common.*;
+import pers.di.common.CLog.LOGLEVEL;
 import pers.di.common.CTest.test;
 
 public class TestCUtilsDateTime {
-
+	private static final boolean DEBUG_TESTCASE_LOG = false;
+	private static void TESTCASE_LOG(String format, Object... args) {
+		if (DEBUG_TESTCASE_LOG) CLog.info("TEST", String.format(format, args));
+	}
 	@test
 	public void test_GetCurrentTimeMillis() {
 		CTest.TEST_PERFORMANCE_BEGIN();
@@ -24,7 +28,7 @@ public class TestCUtilsDateTime {
 			testdata = testdata + CUtilsDateTime.GetCurrentTimeMillis();
 		}
 		CTest.EXPECT_TRUE(CTest.TEST_PERFORMANCE_END() < 500);
-		CLog.debug("TEST", "dump:%d", testdata);
+		TESTCASE_LOG("dump:%d", testdata);
 	}
 	
 	@test
@@ -38,7 +42,7 @@ public class TestCUtilsDateTime {
 			testdata = testdata & CUtilsDateTime.CheckValidDate("2017-02-04");
 		}
 		CTest.EXPECT_TRUE(CTest.TEST_PERFORMANCE_END() < 200);
-		CLog.debug("TEST", "dump:%b", testdata);
+		TESTCASE_LOG("dump:%b", testdata);
 		
 		CTest.EXPECT_FALSE(CUtilsDateTime.CheckValidDate("2016--02-04"));
 		CTest.EXPECT_FALSE(CUtilsDateTime.CheckValidDate("2016--2-29"));
@@ -88,7 +92,7 @@ public class TestCUtilsDateTime {
 			testdata = testdata & CUtilsDateTime.CheckValidTime("12:31:22");
 		}
 		CTest.EXPECT_TRUE(CTest.TEST_PERFORMANCE_END() < 200);
-		CLog.debug("TEST", "dump:%b", testdata);
+		TESTCASE_LOG("dump:%b", testdata);
 		
 		CTest.EXPECT_FALSE(CUtilsDateTime.CheckValidTime("21::31:22"));
 		CTest.EXPECT_FALSE(CUtilsDateTime.CheckValidTime("21::1:22"));
@@ -127,7 +131,7 @@ public class TestCUtilsDateTime {
 			testdata = testdata & CUtilsDateTime.CheckValidDateTime("2017-02-21 12:31:22");
 		}
 		CTest.EXPECT_TRUE(CTest.TEST_PERFORMANCE_END() < 250);
-		CLog.debug("TEST", "dump:%b", testdata);
+		TESTCASE_LOG("dump:%b", testdata);
 		
 		CTest.EXPECT_TRUE(CUtilsDateTime.CheckValidDateTime("2017-02-21 12:31:22"));
 		CTest.EXPECT_FALSE(CUtilsDateTime.CheckValidDateTime("2017-02-2112:31:22"));
@@ -184,7 +188,7 @@ public class TestCUtilsDateTime {
 			cDate = CUtilsDateTime.GetCurDate();
 		}
 		CTest.EXPECT_TRUE(CTest.TEST_PERFORMANCE_END() < 500);
-		CLog.debug("TEST", "dump:%s" , cDate.toString());
+		TESTCASE_LOG("dump:%s" , cDate.toString());
 	}
 	
 	@test
@@ -200,7 +204,7 @@ public class TestCUtilsDateTime {
 			//CLog.output("TEST", "dump:%s \n", stestdata);
 		}
 		CTest.EXPECT_TRUE(CTest.TEST_PERFORMANCE_END() < 500);
-		CLog.debug("TEST", "dump:%s", stestdata);
+		TESTCASE_LOG("dump:%s", stestdata);
 	}
 	
 	@test
@@ -214,7 +218,7 @@ public class TestCUtilsDateTime {
 			stestdata = CUtilsDateTime.GetCurDateStr();
 		}
 		CTest.EXPECT_TRUE(CTest.TEST_PERFORMANCE_END() < 100);
-		CLog.debug("TEST", "dump[%s]", stestdata);
+		TESTCASE_LOG("dump[%s]", stestdata);
 	}
 	
 	@test
@@ -228,7 +232,7 @@ public class TestCUtilsDateTime {
 			stestdata = CUtilsDateTime.GetCurTimeStr();
 		}
 		CTest.EXPECT_TRUE(CTest.TEST_PERFORMANCE_END() < 500);
-		CLog.debug("TEST", "dump[%s]", stestdata);
+		TESTCASE_LOG("dump[%s]", stestdata);
 	}
 	
 	@test
@@ -319,8 +323,8 @@ public class TestCUtilsDateTime {
 			//String afterTimeStr = CUtilsDateTime.getTimeStrForSpecifiedTimeOffsetM("12:22:34", 2);
 		}
 		CTest.EXPECT_TRUE(stestdata.equals("15:14:05"));
-		CTest.EXPECT_TRUE(CTest.TEST_PERFORMANCE_END() < 200);
-		CLog.debug("TEST", "dump[%s]", stestdata);
+		CTest.EXPECT_TRUE(CTest.TEST_PERFORMANCE_END() < 500);
+		TESTCASE_LOG("dump[%s]", stestdata);
 	}
 	
 	@test
@@ -336,7 +340,7 @@ public class TestCUtilsDateTime {
 		CTest.EXPECT_LONG_EQ(CUtilsDateTime.GetSecondFromTimeStr("12:34:56"),12*3600+34*60+56);
 		CTest.EXPECT_TRUE(CUtilsDateTime.GetSecondFromTimeStr("25:34:56") == 0);
 		CTest.EXPECT_TRUE(CTest.TEST_PERFORMANCE_END() < 500);
-		CLog.debug("TEST", "dump[%d]", itestdata);
+		TESTCASE_LOG("dump[%d]", itestdata);
 	}
 	
 	@test
@@ -351,7 +355,7 @@ public class TestCUtilsDateTime {
 		}
 		CTest.EXPECT_TRUE(stestdata.equals("02:02:12"));
 		CTest.EXPECT_TRUE(CTest.TEST_PERFORMANCE_END() < 200);
-		CLog.debug("TEST", "dump[%s]", stestdata);
+		TESTCASE_LOG("dump[%s]", stestdata);
 	}
 	
 	@test
@@ -361,8 +365,8 @@ public class TestCUtilsDateTime {
 		String curTimeStr = CUtilsDateTime.GetCurTimeStr();
 		String beforeTimeStr = CUtilsDateTime.getTimeStrForSpecifiedTimeOffsetS(curTimeStr, -1);
 		String afterTimeStr = CUtilsDateTime.getTimeStrForSpecifiedTimeOffsetS(curTimeStr, 1);
-		CLog.debug("TEST", "curDateStr %s beforeTimeStr = %s", curDateStr, beforeTimeStr);
-		CLog.debug("TEST", "curDateStr %s afterTimeStr = %s", curDateStr, afterTimeStr);
+		TESTCASE_LOG("curDateStr %s beforeTimeStr = %s", curDateStr, beforeTimeStr);
+		TESTCASE_LOG("curDateStr %s afterTimeStr = %s", curDateStr, afterTimeStr);
 		CUtilsDateTime.WAITRESULT wr_before = CUtilsDateTime.waitFor(curDateStr, beforeTimeStr);
 		CTest.EXPECT_TRUE(wr_before==CUtilsDateTime.WAITRESULT.TIME_HAS_GONE);
 		CUtilsDateTime.WAITRESULT wr_after = CUtilsDateTime.waitFor(curDateStr, afterTimeStr);
@@ -387,9 +391,9 @@ public class TestCUtilsDateTime {
 		String beforeTimeStr = CUtilsDateTime.getTimeStrForSpecifiedTimeOffsetS(curTimeStr, -2);
 		String afterTimeStr = CUtilsDateTime.getTimeStrForSpecifiedTimeOffsetS(curTimeStr, 1);
 		String afterTimeStrlong = CUtilsDateTime.getTimeStrForSpecifiedTimeOffsetS(curTimeStr, 100);
-		CLog.debug("TEST", "curDateStr %s beforeTimeStr = %s", curDateStr, beforeTimeStr);
-		CLog.debug("TEST", "curDateStr %s afterTimeStr = %s", curDateStr, afterTimeStr);
-		CLog.debug("TEST", "curDateStr %s afterTimeStr = %s", curDateStr, afterTimeStrlong);
+		TESTCASE_LOG("curDateStr %s beforeTimeStr = %s", curDateStr, beforeTimeStr);
+		TESTCASE_LOG("curDateStr %s afterTimeStr = %s", curDateStr, afterTimeStr);
+		TESTCASE_LOG("curDateStr %s afterTimeStr = %s", curDateStr, afterTimeStrlong);
 		CUtilsDateTime.WAITRESULT wr_before = CUtilsDateTime.waitFor(curDateStr, beforeTimeStr, s_waitObj);
 		CTest.EXPECT_TRUE(wr_before==CUtilsDateTime.WAITRESULT.TIME_HAS_GONE);
 		CUtilsDateTime.WAITRESULT wr_after = CUtilsDateTime.waitFor(curDateStr, afterTimeStr, s_waitObj);

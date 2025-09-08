@@ -3,19 +3,20 @@ package pers.di.common;
 import pers.di.common.*;
 
 public class TestCWatiObj {
-	
+	private static final boolean DEBUG_TESTCASE_LOG = false;
+	private static void TESTCASE_LOG(String s) {
+		if (DEBUG_TESTCASE_LOG) CLog.debug("TEST", s);
+	}
 	public static CWaitObject s_cCWaitObject = new CWaitObject();
 	public static class TestThread extends Thread
 	{
 		@Override
 		public void run()
 		{
-			CLog.debug("TEST", "TestThread run begin");
-			CThread.msleep(5000);
+			CThread.msleep(500);
 			s_cCWaitObject.Notify();
 			CThread.msleep(200);
 			s_cCWaitObject.Notify();
-			CLog.debug("TEST", "TestThread run end");
 		}
 	}
 	@CTest.test
@@ -25,17 +26,17 @@ public class TestCWatiObj {
 		cThread.start();
 		
 		CThread.msleep(200);
-		CLog.debug("TEST", "CWaitObject.Wait ...1");
+		TESTCASE_LOG("CWaitObject.Wait ...1");
 		CTest.EXPECT_TRUE(s_cCWaitObject.Wait(Long.MAX_VALUE));
-		CLog.debug("TEST", "CWaitObject.Wait ...1 Return");
+		TESTCASE_LOG( "CWaitObject.Wait ...1 Return");
 		
-		CLog.debug("TEST", "CWaitObject.Wait ...2");
+		TESTCASE_LOG( "CWaitObject.Wait ...2");
 		CTest.EXPECT_TRUE(s_cCWaitObject.Wait(Long.MAX_VALUE));
-		CLog.debug("TEST", "CWaitObject.Wait ...2 Return");
+		TESTCASE_LOG( "CWaitObject.Wait ...2 Return");
 		
-		CLog.debug("TEST", "CWaitObject.Wait ...2");
+		TESTCASE_LOG("CWaitObject.Wait ...2");
 		CTest.EXPECT_FALSE(s_cCWaitObject.Wait(200));
-		CLog.debug("TEST", "CWaitObject.Wait ...2 Return");
+		TESTCASE_LOG("CWaitObject.Wait ...2 Return");
 		
 	}
 	

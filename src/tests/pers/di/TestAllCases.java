@@ -8,6 +8,9 @@ public class TestAllCases {
         pers.di.common.TestAllCases.addAllTestCases();
         pers.di.webstock.TestAllCases.addAllTestCases();
         pers.di.dataprovider.TestAllCases.addAllTestCases();
+        pers.di.dataengine.TestAllCases.addAllTestCases();
+        pers.di.account.TestAllCases.addAllTestCases();
+        pers.di.dquant.TestAllCases.addAllTestCases();
 	}
     public static void main(String[] args) {
        	CSystem.start();

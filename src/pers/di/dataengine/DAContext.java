@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import javafx.scene.chart.PieChart.Data;
 import pers.di.common.CListObserver;
 import pers.di.dataprovider.DataProvider;
 import pers.di.model.KLine;
@@ -24,8 +23,8 @@ public class DAContext {
     }
     public void setDate(String date) {
         setDateTime(date, "00:00:00");
-        
     }
+
     public void setDateTime(String date, String time) {
         mDate = date;
         mTime = time;
@@ -41,9 +40,26 @@ public class DAContext {
     }
 
     public CListObserver<KLine> getDayKLines(String stockID) {
+        return getDayKLinesForwardAdjusted(stockID);
+    }
+
+    public CListObserver<KLine> getDayKLinesForwardAdjusted(String stockID) {
         if (!mDayKLinesMap.containsKey(stockID)) {
             List<KLine> klines = new ArrayList<KLine>();
             DataProvider.getInstance().getDayKLinesForwardAdjusted(stockID, klines);
+            mDayKLinesMap.put(stockID, klines);
+        }
+        List<KLine> klines = mDayKLinesMap.get(stockID);
+        int endIdx = StockUtils.indexDayKBeforeDate(klines, mDate, true);
+        CListObserver<KLine> klinesObserver = new CListObserver<KLine>();
+        klinesObserver.build(klines, 0, endIdx + 1);
+        return klinesObserver;
+    }
+
+    public CListObserver<KLine> getDayKLinesBackwardAdjusted(String stockID) {
+        if (!mDayKLinesMap.containsKey(stockID)) {
+            List<KLine> klines = new ArrayList<KLine>();
+            DataProvider.getInstance().getDayKLinesBackwardAdjusted(stockID, klines);
             mDayKLinesMap.put(stockID, klines);
         }
         List<KLine> klines = mDayKLinesMap.get(stockID);

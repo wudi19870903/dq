@@ -5,7 +5,11 @@ import java.util.*;
 import pers.di.common.*;
 
 public class TestCDateTimeThruster {
-	
+	private static final boolean DEBUG_TESTCASE_LOG = false;
+	private static void TESTCASE_LOG(String format, Object... args) {
+		if (DEBUG_TESTCASE_LOG) CLog.info("TEST", String.format(format, args));
+	}
+
 	public static CDateTimeThruster s_CDateTimeThruster = new CDateTimeThruster();
 	
 	/*
@@ -72,7 +76,7 @@ public class TestCDateTimeThruster {
 		s_CDateTimeThruster.run();
 		
 		CTest.EXPECT_LONG_EQ(testKeyList1.size(), 8856);
-		CLog.debug("TEST", "test_CDateTimeThruster_History call task count %d", testKeyList1.size());
+		TESTCASE_LOG("TESTCASE_LOG(sk count %d", testKeyList1.size());
 		
 		for(int i=0; i<testKeyList1.size()-1;i++)
 		{
@@ -194,10 +198,10 @@ public class TestCDateTimeThruster {
 		
 	}
 	public static void main(String[] args) {
-		//CSystem.start();
+		CSystem.start();
 		//CLog.config_setTag("DataEngine", true);
 		CTest.ADD_TEST(TestCDateTimeThruster.class);
-		CTest.RUN_ALL_TESTS("TestCDateTimeThruster");
-		//CSystem.stop();
+		CTest.RUN_ALL_TESTS("");
+		CSystem.stop();
 	}
 }

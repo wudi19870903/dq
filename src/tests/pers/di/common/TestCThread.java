@@ -5,15 +5,18 @@ import pers.di.common.CTest;
 import pers.di.common.CThread;
 
 public class TestCThread {
-	
+	private static final boolean DEBUG_TESTCASE_LOG = false;
+	private static void TESTCASE_LOG(String s) {
+		if (DEBUG_TESTCASE_LOG) CLog.debug("TEST", s);
+	}
 	public static class TestThread extends CThread 
 	{
 		@Override
 		public void run() {
-			CLog.debug("TEST", "TestThread Run");
+			TESTCASE_LOG("TestThread Run");
 			while(!checkQuit())
 			{
-				CLog.debug("TEST", "TestThread Running...");
+				TESTCASE_LOG( "TestThread Running...");
 				iRun = 1;
 				Wait(Long.MAX_VALUE);
 			}

@@ -3,7 +3,6 @@ package pers.di.common;
 import pers.di.common.CSystem;
 import pers.di.common.CTest;
 import pers.di.common.CThread;
-import pers.di.dataprovider.TestDataProvider;
 
 public class TestAllCases {
     public static void addAllTestCases() {

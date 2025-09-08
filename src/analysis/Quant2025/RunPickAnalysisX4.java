@@ -21,10 +21,10 @@ public class RunPickAnalysisX4 implements IStockPickStrategy {
 
     public boolean isMatch(CListObserver<KLine> list) {
         // 参数设置
-        int horizontalDays = 20; // 横盘天数
+        int horizontalDays = 10; // 横盘天数
         double horizontalRangePercent = 0.05; // 横盘波动阈值（5%）
-        double breakPercent = 0.10; // 突破涨幅（5%）
-        double rapidRisePercent = 0.20; // 极速上涨涨幅（10%）
+        double breakPercent = 0.05; // 突破涨幅（5%）
+        double rapidRisePercent = 0.10; // 极速上涨涨幅（10%）
         int maxRiseDays = 5; // 极速上涨最大天数
         int minCallbackDays = 5; // 回调最小天数
 
@@ -130,8 +130,8 @@ public class RunPickAnalysisX4 implements IStockPickStrategy {
             e.printStackTrace();
         }
         // 运行选股策略,输出选股结果
-        PickerReport report = new PickerReport();
-        DQuant.getInstance().runUserPickAnalysis("HistoryTest 2023-01-01 2024-01-02",
+        PickerReport report = new PickerReport(20, 0.10, 0.10);
+        DQuant.getInstance().runUserPickAnalysis("HistoryTest 2023-01-01 2023-12-31",
             instancePickStrategy, 
             report);
         report.dump();
@@ -143,6 +143,7 @@ public class RunPickAnalysisX4 implements IStockPickStrategy {
 		CLog.config_setTag("TEST", true);
         CLog.config_setTag("REPORT", true);
 		CLog.config_setTag("ACCOUNT", false);
+        CLog.config_setTag("DQUANT", true);
 		runPickAnalysis();
 		CSystem.stop();
 	}

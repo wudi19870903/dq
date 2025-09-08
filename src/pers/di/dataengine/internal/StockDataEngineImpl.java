@@ -22,6 +22,10 @@ public class StockDataEngineImpl extends StockDataEngine {
 
     @Override
     public int config(String key, String value) {
+		// reset
+		m_SharedSession = new SharedSession();
+		m_CDateTimeThruster = new CDateTimeThruster();
+
         if(0 == key.compareTo("TriggerMode"))
 		{
 			if(value.contains("History"))
@@ -52,7 +56,7 @@ public class StockDataEngineImpl extends StockDataEngine {
 					m_SharedSession.bHistoryTest = true;
 					m_SharedSession.beginDate = beginDate;
 					m_SharedSession.endDate = endDate;
-					CLog.warning("DENGINE", "config trigger history test: %s -> %s.", beginDate, endDate);
+					CLog.info("DENGINE", "config trigger history test: %s -> %s.", beginDate, endDate);
 				}
 			} else {
 				CLog.error("DENGINE", "input parameter error!");

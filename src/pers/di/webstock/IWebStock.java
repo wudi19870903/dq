@@ -1,7 +1,8 @@
 package pers.di.webstock;
 
 import java.util.List;
-import pers.di.model.*;
+import pers.di.model.DividendPayout;
+import pers.di.model.KLine;
 
 public interface IWebStock {
 

@@ -143,8 +143,8 @@ public class RunPickAnalysisX2 implements IStockPickStrategy {
             e.printStackTrace();
         }
         // 运行选股策略,输出选股结果
-        PickerReport report = new PickerReport();
-        DQuant.getInstance().runUserPickAnalysis("HistoryTest 2020-01-01 2024-01-02",
+        PickerReport report = new PickerReport(20, 0.10,0.10);
+        DQuant.getInstance().runUserPickAnalysis("HistoryTest 2023-01-01 2023-12-31",
             instancePickStrategy, 
             report);
         report.dump();
@@ -156,6 +156,7 @@ public class RunPickAnalysisX2 implements IStockPickStrategy {
 		CLog.config_setTag("TEST", true);
         CLog.config_setTag("REPORT", true);
 		CLog.config_setTag("ACCOUNT", false);
+        CLog.config_setTag("DQUANT", true);
 		runPickAnalysis();
 		CSystem.stop();
 	}
