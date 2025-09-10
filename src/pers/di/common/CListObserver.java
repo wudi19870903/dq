@@ -1,8 +1,10 @@
 package pers.di.common;
 
+import java.util.Iterator;
 import java.util.List;
+import java.util.NoSuchElementException;
 
-public class CListObserver<T> {
+public class CListObserver<T> implements Iterable<T> {
 
 	public CListObserver()
 	{
@@ -68,4 +70,31 @@ public class CListObserver<T> {
 	private List<T> m_listContainer;
 	private int m_iBase;
 	private int m_iSize;
+	@Override
+	public Iterator<T> iterator() {
+		// TODO Auto-generated method stub
+		return new CListObserverIterator();
+	}
+
+	private class CListObserverIterator implements Iterator<T> {
+        private int currentIndex = 0;
+
+        @Override
+        public boolean hasNext() {
+            return currentIndex < m_iSize;
+        }
+
+        @Override
+        public T next() {
+            if (!hasNext()) {
+                throw new NoSuchElementException();
+            }
+            return m_listContainer.get(m_iBase + currentIndex++);
+        }
+        
+        @Override
+        public void remove() {
+            throw new UnsupportedOperationException("Remove operation is not supported");
+        }
+    }
 }
