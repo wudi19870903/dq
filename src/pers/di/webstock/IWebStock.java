@@ -7,7 +7,7 @@ import pers.di.model.KLine;
 public interface IWebStock {
 
 	public int getDividendPayout(String stockID, List<DividendPayout> container);
-	public int getKLine(String stockID, List<KLine> container);
+	public int getKLine(String stockID, int dataLen, List<KLine> container);
 
 	// public int getAllStockList(List<StockItem> container);
 	// public int getStockInfo(String stockID, StockInfo container);

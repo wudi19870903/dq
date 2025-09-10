@@ -79,7 +79,7 @@ public class TestWebStock {
 	{
 		String stockID = "600056";
 		List<KLine> ctnKLine = new ArrayList<KLine>();
-		int error = WebStock.instance().getKLine(stockID, ctnKLine);
+		int error = WebStock.instance().getKLine(stockID, 2500, ctnKLine);
 		if(0 == error)
 		{
 			TESTCASE_LOG("List<TradeDetail> size=" + ctnKLine.size());

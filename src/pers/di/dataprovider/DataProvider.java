@@ -16,6 +16,7 @@ public class DataProvider {
 
     // 更新一个本地股票数据
     public int updateOneLocalStocks(String stockID) { return -1;}
+    public int updateOneLocalStocks(String stockID, int dataLen) { return -1;}
 
     // 获取本地股票ID列表（从本地数据excel中读取的)
     public int getLocalAllStockIDList(List<String> list) { return -1;}

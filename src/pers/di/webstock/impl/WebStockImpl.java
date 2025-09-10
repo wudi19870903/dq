@@ -30,8 +30,8 @@ public class WebStockImpl implements IWebStock {
 	}
 	
 	@Override
-	public int getKLine(String stockID, List<KLine> container) {
-		return m_DataWebStockDayK.getKLine(stockID, container);
+	public int getKLine(String stockID, int dataLen, List<KLine> container) {
+		return m_DataWebStockDayK.getKLine(stockID, dataLen, container);
 	}
 
 	// @Override

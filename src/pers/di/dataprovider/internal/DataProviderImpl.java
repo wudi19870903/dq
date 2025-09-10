@@ -146,12 +146,17 @@ public class DataProviderImpl extends DataProvider
 
     @Override
     public int updateOneLocalStocks(String stockID) {
-        int error = 0;
+		return updateOneLocalStocks(stockID, 2500);
+    }
+
+	@Override
+    public int updateOneLocalStocks(String stockID, int dataLen) {
+		int error = 0;
         String curDate = CUtilsDateTime.GetCurDateStr();
         String paramToDate = curDate.replace("-", "");
 
         List<KLine> ctnKLineNew = new ArrayList<KLine>();
-        int errGetWebKLineNew = WebStock.instance().getKLine(stockID, ctnKLineNew);// 获取网络日K数据
+        int errGetWebKLineNew = WebStock.instance().getKLine(stockID, dataLen, ctnKLineNew);// 获取网络日K数据
         
         List<DividendPayout> ctnDividendPayoutNew = new ArrayList<DividendPayout>();
         int errDividendPayoutNew = WebStock.instance().getDividendPayout(stockID, ctnDividendPayoutNew);//获取网络分红派息数据
@@ -186,8 +191,8 @@ public class DataProviderImpl extends DataProvider
             error = -10;
             return error;
         }
-    }
-
+	}
+	
     @Override
     public int getLocalAllStockIDList(List<String> list) { 
 		if (list == null) {

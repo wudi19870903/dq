@@ -230,12 +230,17 @@ public class TestDataProvider {
             KLine klinetest2 = getDateKLine(ctnKLine, "2025-01-02");
             CTest.EXPECT_TRUE(null != klinetest2);
             // TODO: 600000的后复权数据 每日涨跌幅是正确的，但绝对价格和软件上的不一致，后续再解
+            // 原因是 600000的 2005-05-12 日的除权除息数据与同花顺软件上的不一致导致
             // CTest.EXPECT_DOUBLE_EQ(CUtilsMath.save2Decimal(klinetest1.open), 133.16);
             // CTest.EXPECT_DOUBLE_EQ(CUtilsMath.save2Decimal(klinetest1.close), 131.95);
             double winRate = (klinetest2.close - klinetest1.close)/klinetest1.close;
             CTest.EXPECT_DOUBLE_EQ(CUtilsMath.saveNDecimal(winRate, 4), -0.0104);
             TESTCASE_LOG("DayKLinesForwardAdjusted stockID:" + stockID);
             TESTCASE_LOG("    date:" + "2025-01-02" + " open:" + klinetest2.open + " close:" + klinetest2.close);
+            // for(int i = 0; i < ctnKLine.size(); i++) {
+            //     KLine kline = ctnKLine.get(i);
+            //     TESTCASE_LOG("    date:" + kline.date + " open:" + kline.open + " close:" + kline.close);
+            // }
         }
     }
     

@@ -43,7 +43,7 @@ public class DataWebStockDayK {
 	 *     v2.0: url: e.g "http://quotes.money.163.com/service/chddata.html?code=0601857&start=20170705&end=20170809&fields=TCLOSE;HIGH;LOW;TOPEN;VOTURNOVER;"
 	 
 	 */
-	public int getKLine(String id, List<KLine> container)
+	public int getKLine(String id, int datalen, List<KLine> container)
 	{
 		int error = 0;
 		
@@ -69,7 +69,7 @@ public class DataWebStockDayK {
 
 		// http://money.finance.sina.com.cn/quotes_service/api/json_v2.php/CN_MarketData.getKLineData?symbol=sz002095&scale=240&ma=no&datalen=1023
 		String urlStr = "http://money.finance.sina.com.cn/quotes_service/api/json_v2.php/CN_MarketData.getKLineData?";
-		urlStr = urlStr + "symbol=" + innerID + "&scale=240&ma=no&datalen=2500";
+		urlStr = urlStr + "symbol=" + innerID + "&scale=240&ma=no&datalen=" + String.valueOf(datalen);
 		
 		try
 		{

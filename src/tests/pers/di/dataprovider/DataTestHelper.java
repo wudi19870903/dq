@@ -80,7 +80,7 @@ public class DataTestHelper {
 			for(int i=0; i<stockIDs.size();i++)
 			{
 				String stockID = stockIDs.get(i);
-				int ret = DataProvider.getInstance().updateOneLocalStocks(stockID);
+				int ret = DataProvider.getInstance().updateOneLocalStocks(stockID, 65536);
 				CTest.EXPECT_LONG_EQ(0, ret);
 			}
 
