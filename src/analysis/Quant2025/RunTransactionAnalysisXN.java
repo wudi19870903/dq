@@ -12,11 +12,11 @@ import pers.di.dquant.TestDQuantTransaction.MyTestPickA;
 import pers.di.dquant.internal.PickerReport;
 import pers.di.model.KLine;
 
-public class RunTransactionAnalysisX4 {
+public class RunTransactionAnalysisXN {
      public static void runTransactionAnalysis() {
         IStockPickStrategy instancePickStrategy = new RunPickAnalysisX4();
         DQuant.getInstance().runUserTransactionAnalysis(
-            "HistoryTest 2020-01-01 2024-12-31", instancePickStrategy);
+            "HistoryTest 2023-01-01 2023-12-31", instancePickStrategy);
     }
     
     public static void main(String[] args) {
