@@ -17,7 +17,7 @@ import pers.di.model.StockUtils;
 
 public class SimpleAccountBuySellStrategy {
     public static final boolean ENABLE = true;
-    public static final long MAX_HOLD_STOCK_COUNT = 10; // 参数：最大持股数量
+    public static final long MAX_HOLD_STOCK_COUNT = 5; // 参数：最大持股数量
     public static final long MAX_HOLD_STOCK_DAYS = 20; // 参数：最大持股天数
     public static final double STOP_WIN_RATE_THRESHOLD = 0.10; // 策略参数：止盈收益
     public static final double STOP_LOSE_RATE_THRESHOLD = 0.10; // 策略参数：止损收益

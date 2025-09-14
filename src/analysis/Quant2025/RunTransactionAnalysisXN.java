@@ -14,9 +14,9 @@ import pers.di.model.KLine;
 
 public class RunTransactionAnalysisXN {
      public static void runTransactionAnalysis() {
-        IStockPickStrategy instancePickStrategy = new RunPickAnalysisX4();
+        IStockPickStrategy instancePickStrategy = new RunPickAnalysisX10();
         DQuant.getInstance().runUserTransactionAnalysis(
-            "HistoryTest 2023-01-01 2023-12-31", instancePickStrategy);
+            "HistoryTest 2020-01-01 2023-12-31", instancePickStrategy);
     }
     
     public static void main(String[] args) {
