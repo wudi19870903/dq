@@ -5,6 +5,7 @@ import java.util.Collections;
 import java.util.List;
 
 import pers.di.common.CListObserver;
+import pers.di.common.CLog;
 import pers.di.model.KLine;
 
 public class GoldCrossChecker {
@@ -97,6 +98,7 @@ public class GoldCrossChecker {
         }
 
         // 计算自从上次金叉以来的天数
+        CLog.info("TEST", "GoldCross today:%s", list.get(todayIndex).date);
         int daysSinceLastGoldCross = todayIndex - lastGoldCrossIndex;
         return daysSinceLastGoldCross >= longTimeDays;
     }
